@@ -14,9 +14,9 @@ var routes:Routes=[];
 //首页
 routes = routes.concat(MainRoutes);
 //系统管理
-routes=routes.concat(systemRoutes)
+// routes=routes.concat(systemRoutes)
 //游戏栏目管理
-routes=routes.concat(GameRoutes)
+// routes=routes.concat(GameRoutes)
 //错误页面请放最后
 routes = routes.concat(NotFindPageRoutes);
 
@@ -44,6 +44,6 @@ export const ComponentList = [
     AdminComponent,
     MainComponentList,
     NotFindPageComponentList,
-    SystemList,
-    GameList
+    // SystemList,
+    // GameList
 ]
