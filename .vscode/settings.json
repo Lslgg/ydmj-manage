@@ -1,0 +1,28 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.fontSize":15,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "e2e":true,
+        // "node_modules":true,
+        ".editorconfig":true,
+        ".zshrc":true,
+        // "src/environments":true,
+        "src/tsconfig.spec.json":true,
+        "data.rar":true,
+        "dist":true,
+        "LICENSE":true,
+        "tsconfig.json":true,
+        ".gitignore":true,
+        "tslint.json":true,
+        "yarn-error.log":true,
+        "karma.conf.js":true,
+        "protractor.conf.js":true,
+        "upgrade.md":true,
+        "src/test.ts":true
+    }
+}

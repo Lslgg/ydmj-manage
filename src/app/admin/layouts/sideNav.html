@@ -1,0 +1,89 @@
+<div class="sideNav">
+  <mat-list>
+    <mat-list-item class="mat-list-item-3">
+      <div class="logo">
+        <a href="#/admin" class="simple-text logo-normal">
+          欢乐英德麻将
+        </a>
+      </div>
+    </mat-list-item>
+  </mat-list>
+  <mat-divider></mat-divider>
+
+  <mat-list class="mat-user-info">
+    <mat-list-item class="user-info">
+      <img matListIcon src="assets/img/avatars/6.jpg" class="userimg rounded-circle" alt="Responsive image">
+
+      <a matLine src="javascript:;">Admin</a>
+      <i class="fa fa-caret-down aside-menu-toggler"></i>
+    </mat-list-item>
+    <mat-list dense style="display:none;">
+      <mat-list-item>
+        <a class="nav-link" routerLinkActive="active" routerLink="/admin/upUserInfo">
+          <span class="sidebar-mini">  </span>
+          <span class="sidebar-normal"> 个人信息 </span>
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+        <a class="nav-link" routerLinkActive="active" routerLink="/admin/upUserPwd">
+          <span class="sidebar-mini">   </span>
+          <span class="sidebar-normal"> 修改密码 </span>
+        </a>
+      </mat-list-item>
+      <mat-list-item>
+        <a class="nav-link" routerLinkActive="active" (click)="logOut()">
+          <span class="sidebar-mini">  </span>
+          <span class="sidebar-normal"> 退出 </span>
+        </a>
+      </mat-list-item>
+      <!-- <mat-divider></mat-divider> -->
+    </mat-list>
+  </mat-list>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngFor="let menu of navMenuList">
+    <div class="first-mat-list">
+      <mat-list class="toggler" dense>
+        <mat-list-item>
+          {{ menu.title }}
+        </mat-list-item>
+      </mat-list>
+      <mat-divider></mat-divider>
+
+      <mat-nav-list>
+        <ng-container *ngFor="let subMenu of menu.subNavMenuList">
+          <ng-container *ngIf="subMenu?.subNavMenuList?.length!=0">
+            <div class="matlist">
+              <mat-list-item>
+                <i matListIcon style="margin:3px" class="grid-cell {{subMenu.menuImg}}"></i>
+                <a matLine src="javascript:;">{{ subMenu.title }}</a>
+                <i class="fa fa-caret-down aside-menu-toggler"></i>
+              </mat-list-item>
+              <mat-list dense style="display:none;">
+                <ng-container *ngFor="let subSubMenu of subMenu.subNavMenuList">
+                  <mat-list-item>
+                    <a class="nav-link" routerLinkActive="active" routerLink="/admin/{{subSubMenu.url}}">
+                      <i matListIcon style="margin:3px" class="{{subSubMenu.menuImg}}"></i>
+                      {{subSubMenu.title}}
+                    </a>
+                  </mat-list-item>
+                </ng-container>
+                <!-- <mat-divider></mat-divider> -->
+              </mat-list>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="subMenu?.subNavMenuList?.length==0">
+            <div class="matlist">
+              <mat-list-item>
+                <i matListIcon style="margin:3px" class="{{subMenu.menuImg}}"></i>
+                <a matLine routerLinkActive="active" routerLink="/admin/{{ subMenu.url }}">{{ subMenu.title }}</a>
+              </mat-list-item>
+            </div>
+          </ng-container>
+        </ng-container>
+      </mat-nav-list>
+      <mat-divider></mat-divider>
+    </div>
+  </ng-container>
+</div>
+<div class="sidebar-background" style="background-image: url(../assets/img/sidebar-1.jpg) "></div>

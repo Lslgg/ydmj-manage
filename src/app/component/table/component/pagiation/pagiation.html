@@ -1,0 +1,38 @@
+<div class="row pageiation">
+    <div class="col-sm-4 pageiation-left">
+        <div class="dataTables_info" id="datatables_info" role="status" aria-live="polite">
+            总数:<span class="badge badge-pill badge-danger">{{pageCount}}</span> 
+            当前第<span class="badge badge-pill badge-info">{{nowPageIndex}}</span>页 
+            每页<span class="badge badge-pill badge-warning">{{pageSize}}</span> 记录
+        </div>
+    </div>
+    <div class="col-sm-7 pageiation-right">
+        <div class="dataTables_paginate paging_full_numbers" id="datatables_paginate">
+            <ul class="pagination">
+                <li class="paginate_button first disabled" id="datatables_first">
+                    <a href="javascript:;" (click)="getPage(1)">首页</a></li>
+                <li class="paginate_button previous disabled" id="datatables_previous">
+                    <a href="javascript:;" (click)="getPrevPage()">上一页</a></li>
+                <ng-container *ngFor="let item of PagiationStrList; let i=index">
+                    <ng-container *ngIf="item==nowPageIndex">
+                        <li class="paginate_button active">
+                            <a href="javascript:;" (click)="getPage(item)">{{item}}</a>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="item!=nowPageIndex">
+                        <li class="paginate_button">
+                            <a href="javascript:;" (click)="getPage(item)">{{item}}</a>
+                        </li>
+                    </ng-container>
+                </ng-container>
+                <li class="paginate_button next" id="datatables_next">
+                    <a href="javascript:;" (click)="getNextPage()">下一页</a>
+                </li>
+                <li class="paginate_button last" id="datatables_last">
+                    <a href="javascript:;" (click)="getPage(LastPage)">未页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

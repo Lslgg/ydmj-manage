@@ -1,0 +1,17 @@
+<div class="uploadImg">
+  <a mat-raised-button (click)="imgFileInput.click()">
+    <span>上传</span>
+    <i class="material-icons">file_upload</i>
+  </a>
+  <input hidden type="file" #imgFileInput (change)="fileChange($event)" multiple />
+  <mat-list>
+    <h3 mat-subheader>文件列表</h3>
+    <mat-list-item *ngFor="let file of files">
+      <mat-icon mat-list-icon>insert_drive_file</mat-icon>
+      <a mat-line href="{{file?.url}}" target="_block">{{file?.name}}</a>
+      <a (click)="deleteFile(file?.id)">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </a>
+    </mat-list-item>
+  </mat-list>
+</div>

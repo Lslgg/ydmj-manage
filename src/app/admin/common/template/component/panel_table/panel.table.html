@@ -1,0 +1,21 @@
+<div class="card card-table">
+  <div class="card-header card-header-icon" data-background-color="purple">
+    <i class="material-icons">assignment</i>
+  </div>
+  <div class="card-content">
+    <h4 class="card-title">{{ Title }}</h4>
+    <div class="toolbar" *ngIf="showOpeation">
+      <button mat-raised-button color="primary" (click)="onAddInfo()">添加</button>
+      <button mat-raised-button color="accent" (click)="delete()">删除</button>
+    </div>
+    <div class="material-datatables">
+      <div id="datatables_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+        <div class="row">
+          <div class="col-sm-12">
+            <ng-content></ng-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

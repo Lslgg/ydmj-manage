@@ -1,0 +1,57 @@
+<div class="form-group label-floating is-empty formItem" [formGroup]="formInfo">
+  <div class="col-md-12">
+    <ng-container *ngIf="type=='text'">
+      <mat-form-field>
+        <input matInput type="text" class="form-control" formControlName="{{name}}" placeholder="{{title}}">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='number'">
+      <mat-form-field>
+        <input matInput type="number" class="form-control" formControlName="{{name}}" placeholder="{{title}}">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='email'">
+      <mat-form-field>
+        <input matInput type="email" class="form-control" formControlName="{{name}}" placeholder="{{title}}">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='password'">
+      <mat-form-field>
+        <input matInput type="password" class="form-control" formControlName="{{name}}" placeholder="{{title}}">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='font-img'">
+      <mat-form-field>
+        <input matInput type="text" class="form-control" formControlName="{{name}}" placeholder="{{title}}">
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='select'">
+      <mat-form-field>
+        <mat-select formControlName="{{name}}" placeholder="{{title}}" (change)="change($event)">
+          <mat-option *ngFor="let item of dataList" [value]="item.key">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='date'">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" 
+           placeholder="{{title}}" formControlName="{{name}}" class="form-control" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="type=='file'">
+      <input type="text" class="form-control" formControlName="{{name}}" style="display:none">
+      <file-upload (onFileChange)="onFileChange($event)" [files]="files" (onDeleteFile)="onDeleteFile($event)"></file-upload>
+    </ng-container>
+    <ng-container *ngIf="type=='font-img'">
+      <i class="{{formInfo.get(name).value}}"></i>
+    </ng-container>
+    <ng-container *ngIf="type=='checkbox'">
+      <mat-checkbox formControlName="{{name}}">{{title}}</mat-checkbox>
+    </ng-container>
+    <ng-content select="form-validator"></ng-content>
+  </div>
+</div>

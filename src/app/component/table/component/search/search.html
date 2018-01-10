@@ -1,0 +1,27 @@
+<div class="searchItem" id="searchItem">
+  <ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'select'">
+      <mat-form-field>
+        <mat-select [(ngModel)]="nowValue" class="form-control" placeholder="{{title}}">
+          <mat-option matInput *ngFor="let item of dataList" [value]="item.key">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="'date'">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="{{title}}"
+        [(ngModel)]="nowValue.value" (click)="picker.open()" id="{{name}}" class="form-control" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <mat-form-field>
+        <input matInput [(ngModel)]="nowValue" value="{{value}}" id="{{name}}" 
+            name="{{name}}" placeholder="{{title}}" type="text" class="form-control" >
+      </mat-form-field>
+    </ng-container>
+  </ng-container>
+</div>

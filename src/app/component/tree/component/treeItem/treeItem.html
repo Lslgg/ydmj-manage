@@ -1,0 +1,24 @@
+<li class="ul_li">
+    <p class="li_p" menuhover>
+        <ng-container *ngIf="!tree.isLeaf">
+            <i class="fa fa-plus-square" id="{{tree.id}}" (click)="getSelfSubTree(tree)" aria-hidden="true" menuroot></i>
+            <i class="fa fa-folder" id="{{tree.id}}" aria-hidden="true"></i> 
+            <a href="javascript:;" (click)="updateSelfTree(tree.id,tree.name)"> {{tree.name}}</a>
+        </ng-container>
+        <ng-container *ngIf="tree.isLeaf">
+            <i class="fa fa-file" aria-hidden="true"></i> 
+            <a href="javascript:;" (click)="updateSelfTree(tree.id,tree.name)"> {{tree.name}}</a>
+        </ng-container>
+        <span *ngIf="isOperation" class="operation hiden">
+            <i class="fa fa-plus mouse" title="添加" (click)="addSelfTree(tree.id,1)"></i>
+            <i class="fa fa-remove mouse" title="删除" (click)="deleteSelfTree(tree.id,tree.pid);"></i>
+        </span>
+    </p>
+    <ul *ngIf="tree.IsSubMenu" class="menu_{{tree.id}}">
+        <ng-container *ngFor="let tree of tree.subTrees">
+            <tree-item [tree]="tree" [treeList]="treeList" [isOperation]="isOperation"
+            (onGetSubTree)="getSubList($event)" (onAddTree)="addTree($event)" 
+            (onDeleteTree)="deleteTree($event)" (onUpdateTree)="updateTree($event)"></tree-item>
+        </ng-container>
+    </ul>
+</li>

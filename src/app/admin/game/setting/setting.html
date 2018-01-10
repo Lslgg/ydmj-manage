@@ -1,0 +1,99 @@
+<div plane-body>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+          <i class="material-icons">remove_shopping_cart</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">是否免费房卡</h4>
+          <form method="#" action="#">
+            <div class="form-group label-floating is-empty">
+              <mat-checkbox matInput (change)="set_if_free($event)" [checked]="content.free">(勾选表是免费房卡)</mat-checkbox>
+            </div>
+            <button type="submit" class="btn btn-fill btn-rose">修改</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+          <i class="material-icons">volume_down</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">公告信息</h4>
+          <form method="#" action="#">
+            <div class="form-group label-floating is-empty">
+              <textarea [(ngModel)]="content.news" name="news" id="news" style="width:100%;min-width: 320px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-fill btn-rose" (click)="set_news()">修改</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+          <i class="material-icons">volume_down</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">走马灯</h4>
+          <form method="#" action="#">
+            <div class="form-group label-floating is-empty">
+              <textarea [(ngModel)]="content.notice" name="notice" id="notice" style="width:100%;min-width: 320px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-fill btn-rose" (click)="set_notice()">修改</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+          <i class="material-icons">textsms</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">微信提示</h4>
+          <form method="#" action="#">
+            <div class="form-group label-floating is-empty">
+              <textarea [(ngModel)]="content.tip" name="tip" id="tip" style="width:100%;min-width: 320px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-fill btn-rose" (click)="set_tip()">修改</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-icon" data-background-color="rose">
+          <i class="material-icons">settings</i>
+        </div>
+        <div class="card-content">
+          <h4 class="card-title">版本设置</h4>
+          <form method="#" action="#">
+            <div class="form-group label-floating is-empty">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="iosUrl" type="text" class="form-control" [(ngModel)]="version.iOSUrl" name="iOSUrl">
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="iosVersion" type="text" class="form-control" [(ngModel)]="version.iOSVersion" name="iOSVersion">
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="androidUrl" type="text" class="form-control" [(ngModel)]="version.androidUrl" name="androidUrl">
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput placeholder="androidVersion" type="text" class="form-control" [(ngModel)]="version.androidVersion" name="androidVersion">
+              </mat-form-field>
+            </div>
+            <button type="submit" class="btn btn-fill btn-rose" (click)="set_version()">修改</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

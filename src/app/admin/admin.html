@@ -1,0 +1,14 @@
+<div class="appAdmin">
+  <mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav #start mode="side" opened="true">
+      <admin-layouts-sidenav></admin-layouts-sidenav>
+    </mat-sidenav>
+
+    <section class="sidenav-content">
+      <admin-layouts-header [sidenav]="start"></admin-layouts-header>
+      <router-outlet></router-outlet>
+    </section>
+
+  </mat-sidenav-container>
+</div>

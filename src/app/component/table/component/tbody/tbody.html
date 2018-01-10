@@ -1,0 +1,67 @@
+<tr class="trContent" *ngFor="let item of dataList let i=index">
+  <ng-container *ngFor="let row of rowNameList">
+    <ng-container [ngSwitch]="row.type">
+
+      <ng-container *ngSwitchCase="'checkbox'">
+        <td>
+          <mat-checkbox name="checkbox" [checked]="item['isCheck']" (change)="onchecked(item,checkbox.checked)" #checkbox></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'#'">
+        <td>{{ i+1 }}</td>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'operation'">
+        <td class="operation">
+          <ng-container *ngFor="let info of operationList">
+            <ng-container [ngSwitch]="info">
+              <ng-container *ngSwitchCase="'修改'">
+                <a href="javascript:;" (click)="update(item[key])">{{info}}</a>
+              </ng-container>
+              <ng-container *ngSwitchCase="'删除'">
+                <a href="javascript:;" (click)="delInfo(item[key])">{{info}}</a>
+              </ng-container>
+              <ng-container *ngSwitchCase="'启用'">
+                <a href="javascript:;" (click)="isValue(item[key])">{{info}}</a>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <a href="javascript:;" (click)="setInfo({id:item[key],type:info})">{{info}}</a>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <td [attr.colspan]="row.columnSpan" 
+            [title]="item[row.name]" 
+            [id]="item[key]" 
+            [field]="row.name" 
+            [colType]="row.type"
+            [updateUrl]="moduleStr?.url"
+            [item]="item" (onSetInfo)="setInfo($event)" tbody-td></td>
+      </ng-container>
+
+    </ng-container>
+  </ng-container>
+</tr>
+
+<tr *ngIf="isShowTotal" class="tdTotal">
+  <td [attr.colspan]="pagiztionColSpan" style="text-align:center">
+    合计：共
+    <span class="badge badge-danger"> {{pageCount}} </span> 记录,
+    <ng-container *ngFor="let total of totalList">
+      {{total.title}}:
+      <span class="badge badge-danger"> {{total.total}} </span>
+    </ng-container>
+    <ng-content select=".data-total"></ng-content>
+  </td>
+</tr>
+
+<tr *ngIf="isShowPagiation" class="tdPageiation">
+  <td [attr.colspan]="pagiztionColSpan">
+    <pagiation [pageCount]="pageCount" [pageSize]="pageSize" (ongetPage)="getPage($event)">
+    </pagiation>
+  </td>
+</tr>

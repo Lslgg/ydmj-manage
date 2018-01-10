@@ -1,0 +1,26 @@
+.mat-toolbar{
+  background: none;
+}
+
+.header-toolbar{
+  z-index: 10;
+  padding: 0 16px 0 0;
+  margin-bottom: 40px;
+  mat-toolbar-row {
+    color: #909090;
+    display: flex;
+    justify-content: space-between;
+    .siteName {
+      margin-right: 12px;
+    }
+    .nav-link {
+      color: #909090;
+    }
+    .userName {
+      margin-left: 8px;
+    }
+    .mat-mini-fab.mat-accent{
+      background: white;
+    }
+  }
+}

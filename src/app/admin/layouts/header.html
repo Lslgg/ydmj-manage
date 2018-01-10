@@ -1,0 +1,37 @@
+<mat-toolbar  class="header-toolbar">
+    <mat-toolbar-row>
+      <div class="item">
+        <nav class="nav nav-inline">
+          <a class="nav-link" mat-mini-fab>
+            <mat-icon class="example-icon" (click)="sidenav.toggle()">view_headline</mat-icon>
+          </a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin">首页</a>
+        </nav>
+      </div>
+      <div class="item">
+        <button mat-icon-button>
+          <img src="assets/img/avatars/6.jpg" class="userimg rounded-circle" alt="Responsive image">
+        </button>
+        <button mat-icon-button>
+          <span class="userName">admin</span>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item routerLinkActive="active" routerLink="/admin/upUserPwd">
+            <mat-icon>dialpad</mat-icon>
+            <span>修改密码</span>
+          </a>
+          <a mat-menu-item routerLinkActive="active" routerLink="/admin/upUserInfo">
+            <mat-icon>voicemail</mat-icon>
+            <span>个人信息</span>
+          </a>
+          <a mat-menu-item routerLinkActive="active" (click)="LogOut()">
+            <mat-icon>notifications_off</mat-icon>
+            <span>退出</span>
+          </a>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>

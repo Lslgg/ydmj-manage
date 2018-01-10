@@ -1,0 +1,4 @@
+<template-panel-form Title="菜单列表">
+  <data-tree [treeList]="treeList" [isOperation]="true" (onGetSubTree)="onGetSubTree($event)" (onAddTree)="onAddTree($event)"
+    (onDeleteTree)="onDeleteTree($event)" (onUpdateTree)="onUpdateTree($event)" body></data-tree>
+</template-panel-form>

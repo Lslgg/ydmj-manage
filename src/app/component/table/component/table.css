@@ -1,0 +1,21 @@
+.pagination{
+    margin-bottom:0px; 
+}
+
+.table .table{
+    background:white;
+}
+
+.theadTr{
+   background: #e4e5e6;
+}
+
+.theadTr th{
+    padding: .75rem;
+}
+
+@media (max-width: 768px){
+  .pagination .page-link, .pagination-datatables li a, .pagination li a{
+      padding: 0.3rem 0.4rem
+  }
+}

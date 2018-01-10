@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-6">
+    <admin-main-card title="用户总数" subTitle="用户总数" icons="weekend" 
+        subIcons="local_offer" [total]="total.totalPlayer" color="green"></admin-main-card>
+  </div>
+  <div class="col-md-6">
+    <admin-main-card title="新增用户数" subTitle="新增用户数" icons="contacts" 
+        subIcons="local_offer" [total]="total.newPlayer" color="red"></admin-main-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <admin-main-card title="在线用户数" subTitle="在线用户数" icons="account_box" 
+        subIcons="date_range" [total]="total.onlinePlayer" color="rose"></admin-main-card>
+  </div>
+  <div class="col-md-6">
+    <admin-main-card title="房卡使用数" subTitle="房卡使用数" icons="store" 
+        subIcons="update" [total]="total.useCard" color="blue"></admin-main-card>
+  </div>
+</div>
