@@ -27,7 +27,7 @@ export class SideNavComponent implements OnInit {
         var sql = gql`query{
             list:getMenuWhere(menu: {isValid: true}) { id pid title menuImg code url }
             user:currentUser {
-                id,Role {id, Powers { id,
+                id,Role {id, Powers:Powers(limit:100) { id,
                 Menu{ id,pid,title,menuImg,code,url} } } 
             }
         }`;

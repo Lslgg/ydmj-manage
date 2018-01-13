@@ -53,9 +53,9 @@ export class DataFormComponent implements OnInit {
         });
 
         //如果是自动加载查找给值
+        this.id = this.route.snapshot.params['id'];
         let val = {};
         if (this.isAuto) {
-            this.id = this.route.snapshot.params['id'];
             if (this.id) {
                 var queryInfo:any = {
                     query: this.dataStr.data,
@@ -115,7 +115,7 @@ export class DataFormComponent implements OnInit {
             for (var i = 0, j = keyList.length; i < j; i++) {
                 var self = keyList[i];
                 var info = obj[self];
-                if (typeof info == "object") {
+                if (typeof info == "object"&&info!=null) {
                     if (info instanceof Date) {
                         info = this.cdate.toDateFormat((<Date>info));
                     } else {
