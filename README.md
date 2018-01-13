@@ -66,4 +66,4 @@ this.apollo.mutate<{menu:any}>({
     }
 }).subscribe(({ data }) => {console.log(data.menu)}
 ```
-<!-- test -->
+### test 查询例子
