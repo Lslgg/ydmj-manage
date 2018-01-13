@@ -21,15 +21,16 @@ export class AddMenuComponent implements OnInit {
         code: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(24)]],
         url: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(24)]],
         menuImg: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(24)]],
-        isLeaf: true,
         isValid: true
-    });;
+    });
+
+    type: number;
 
     constructor(private apollo: Apollo, private fb: FormBuilder,
         private route: ActivatedRoute, private router: Router) {
         let id = this.route.snapshot.params['id'];
-        let type = this.route.snapshot.params['type'];
-        if (type == 1) { //设置添加时表单显示信息
+        this.type = this.route.snapshot.params['type'];
+        if (this.type == 1) { //设置添加时表单显示信息
             this.setAddMenu(id);
             return;
         }
@@ -89,11 +90,14 @@ export class AddMenuComponent implements OnInit {
             id: menuId, pid, parentTitle, title, code,
             url, menuImg, isLeaf, isValid
         }
-        
+
         this.menuForm.setValue(menuForm)
     }
 
     onSubmit(menu: Menu) {
+        if (this.type == 1) {
+            menu.id = "";
+        }
         var sql = gql`mutation save($menu:inputMenu){
             menu:saveMenu(menu:$menu){ id }
         }`;
@@ -102,8 +106,8 @@ export class AddMenuComponent implements OnInit {
             variables: { menu: menu }
         }
 
-        this.apollo.mutate<{menu:any}>(mutInfo).subscribe(({ data }) => {
-            alert(data?"保存成功！":"保存失败");
+        this.apollo.mutate<{ menu: any }>(mutInfo).subscribe(({ data }) => {
+            alert(data ? "保存成功！" : "保存失败");
             this.router.navigate(['admin/menu']);
         });
     }

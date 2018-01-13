@@ -81,7 +81,7 @@ export class AddPowerComponent implements OnInit {
     getRolePower() {
         var sql = gql`query getList($id:String){
             role:getRoleById(id:$id) {
-                powerList:Powers { id operation title code }
+                powerList:Powers(limit:100) { id operation title code }
             }
         }`;
 
