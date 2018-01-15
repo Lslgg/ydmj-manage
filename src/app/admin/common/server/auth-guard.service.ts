@@ -38,7 +38,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
             var isSuccess = false;
             this.getRolrPowerList().then(list => {
                 list.forEach(val => {
-                    console.log(val);
                     var index = val.operation.indexOf(power);
                     if (val.url.toUpperCase() == url.toUpperCase() && index > -1) {
                         isSuccess = true;
