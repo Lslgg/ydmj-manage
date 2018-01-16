@@ -16,7 +16,7 @@ import { TreeModule } from '../component/tree';
 import { DataModalModule } from '../component/dataModal';
 import { FontawesomeModule } from '../component/fontawesome';
 import { AuthGuard } from './common/server/auth-guard.service';
-
+//Materia Ui
 import { MaterialList } from '../common/material.list';
 
 import { AdminRoutingModule, ComponentList } from './admin.routing';
@@ -47,7 +47,7 @@ let directive=[
         DataFormModule,
         TreeModule,
         DataModalModule,
-        FontawesomeModule
+        FontawesomeModule,
     ],
     exports: [],
     declarations: [
