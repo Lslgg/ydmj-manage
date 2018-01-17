@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Http } from '@angular/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'component-editor',
@@ -9,12 +10,11 @@ import { Http } from '@angular/http';
 
 export class EditorComponent implements OnInit {
     @Input() name: string;
-
     public editorOptions: Object = {
         placeholderText: this.name,
         fileUpload: false,
         imageUploadParam: 'avatar',
-        imageUploadURL: 'http://localhost:8080/profile',
+        imageUploadURL: `${environment.dataServer}/profile`,
         events: {
             'froalaEditor.initialized': () => {
                 console.log('editor');
@@ -23,7 +23,7 @@ export class EditorComponent implements OnInit {
                 console.log(editor);
                 var list = $img[0].src.split("/");
                 var fileName=list[list.length-1];
-                this.http.post("http://localhost:8080/delimg/"+fileName, null);
+                this.http.post(`${environment.dataServer}/delimg/${fileName}`, null);
             }
         }
     };
