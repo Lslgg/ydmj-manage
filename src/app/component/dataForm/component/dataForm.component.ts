@@ -105,6 +105,7 @@ export class DataFormComponent implements OnInit {
                 this.router.navigate([this.dataStr.url]);
             })
         }
+        console.log(formObj);
         this.onSubmit.emit(formObj);
     }
 

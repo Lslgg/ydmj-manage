@@ -43,7 +43,7 @@
       </mat-form-field>
     </ng-container>
     <ng-container *ngIf="type=='file'">
-      <input type="text" class="form-control" formControlName="{{name}}" style="display:none">
+      <input type="text" class="form-control" formControlName="{{name}}" type="hidden">
       <file-upload (onFileChange)="onFileChange($event)" [files]="files" (onDeleteFile)="onDeleteFile($event)"></file-upload>
     </ng-container>
     <ng-container *ngIf="type=='font-img'">
@@ -53,7 +53,8 @@
       <mat-checkbox formControlName="{{name}}">{{title}}</mat-checkbox>
     </ng-container>
     <ng-container *ngIf="type=='editor'">
-      <component-editor></component-editor>
+      <input [(ngModel)]="deitor.content" class="form-control" formControlName="{{name}}" type="hidden">
+      <component-editor [name]="name" #deitor></component-editor>
     </ng-container>
     <ng-container *ngIf="type=='hidden'">
       <input type="hidden" class="form-control" formControlName="{{name}}" placeholder="{{title}}">

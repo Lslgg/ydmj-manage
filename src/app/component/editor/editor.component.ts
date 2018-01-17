@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { Http } from '@angular/http';
 
 @Component({
@@ -8,9 +8,10 @@ import { Http } from '@angular/http';
 })
 
 export class EditorComponent implements OnInit {
-    fileName: string;
+    @Input() name: string;
+
     public editorOptions: Object = {
-        placeholderText: 'Edit Your Content Here!',
+        placeholderText: this.name,
         fileUpload: false,
         imageUploadParam: 'avatar',
         imageUploadURL: 'http://localhost:8080/profile',
