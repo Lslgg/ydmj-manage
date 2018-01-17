@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UMeditorModule } from 'ngx-umeditor';
 
 import { AppRoutingModule } from './app.routing'
 import { AppComponent } from './app.component';
@@ -18,7 +19,8 @@ import { CommonData } from './common/common';
     BrowserAnimationsModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    UMeditorModule
   ],
   declarations: [
     AppComponent,

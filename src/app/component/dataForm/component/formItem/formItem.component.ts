@@ -85,9 +85,11 @@ export class FormItemComponent implements OnInit {
         }
 
         //如果字段为文件
-        if(this.type=="file"&&name.length>0){
+        if(this.type=="file"&&name.length>0&&name[0]!=null){
             this.files=name;
             name=this.files.map(p=>p.id)
+        }else{
+            this.files=[];
         }
         this.formInfo.get(this.name).setValue(name);
     }

@@ -33,7 +33,6 @@ export class AddAdvertComponent implements OnInit {
             saveAdvert(advert:$info){ id }
         }`,
         url: "admin/advert",
-        
     }
 
     typeList: Array<{ key: string, value: string }> = [

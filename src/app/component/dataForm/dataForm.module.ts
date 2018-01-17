@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModalModule } from '../fileUpload/';
 import { MaterialList } from '../../common/material.list';
 import {MatInputModule} from '@angular/material';
+import { EditorModule } from '../editor/editor.module';
+
 import {
    DataFormComponent,
    FormItemComponent,
    FormGroupComponent,
-   ValidatorComponent
+   ValidatorComponent,
 } from "./component/index";
 
 let commonList = [
@@ -25,7 +27,8 @@ let commonList = [
         CommonModule,
         MaterialList,
         ReactiveFormsModule,
-        FileUploadModalModule
+        FileUploadModalModule,
+        EditorModule
     ],
     exports: [
         commonList
