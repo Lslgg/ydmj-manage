@@ -66,7 +66,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
         var sql = gql`query{
             user:currentUser {
-                id,Role {id, Powers { id,url,operation} } 
+                id,Role {id, Powers(limit:100) { id,url,operation} } 
             }
         }`;
         var qInfo: any = { query: sql, fetchPolicy: "network-only" };
