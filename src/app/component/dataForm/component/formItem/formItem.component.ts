@@ -38,10 +38,12 @@ export class FormItemComponent implements OnInit {
 
     @Output() onChange = new EventEmitter<any>();
 
+    @Input() editorContent="";
+
     @ContentChildren(ValidatorComponent) validatorList: QueryList<ValidatorComponent>;
 
     constructor() {
-        
+
     }
 
     change(info){
@@ -51,7 +53,6 @@ export class FormItemComponent implements OnInit {
     ngOnInit() {
         //用于设置是否显示组件样式
         this.colmd12 = this.isRootClass;
-       
     }
 
     //添加上传文件id到隐藏文本上
@@ -92,6 +93,9 @@ export class FormItemComponent implements OnInit {
             this.files=[];
         }
         this.formInfo.get(this.name).setValue(name);
+        if(this.type=="editor"){
+            this.editorContent=name;
+        }
     }
 
 }

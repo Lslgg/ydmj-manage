@@ -36,8 +36,8 @@
     </ng-container>
     <ng-container *ngIf="type=='date'">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" (click)="picker.open()" 
-           placeholder="{{title}}" formControlName="{{name}}" class="form-control" readonly>
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="{{title}}" formControlName="{{name}}" class="form-control"
+          readonly>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -53,8 +53,8 @@
       <mat-checkbox formControlName="{{name}}">{{title}}</mat-checkbox>
     </ng-container>
     <ng-container *ngIf="type=='editor'">
-      <input [(ngModel)]="deitor.content" class="form-control" formControlName="{{name}}" type="hidden">
-      <component-editor [name]="name" #deitor></component-editor>
+      <input [(ngModel)]="editor.content" class="form-control" formControlName="{{name}}" type="hidden">
+      <editor-TinyMce [elementId]="name" [initContent]="editorContent" #editor></editor-TinyMce>
     </ng-container>
     <ng-container *ngIf="type=='hidden'">
       <input type="hidden" class="form-control" formControlName="{{name}}" placeholder="{{title}}">

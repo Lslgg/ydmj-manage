@@ -20,7 +20,6 @@ export class EditorComponent implements OnInit {
                 console.log('editor');
             },
             'froalaEditor.image.removed': (e, editor, $img) => {
-                console.log(editor);
                 var list = $img[0].src.split("/");
                 var fileName=list[list.length-1];
                 this.http.post(`${environment.dataServer}/delimg/${fileName}`, null);
