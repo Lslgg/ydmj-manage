@@ -22,7 +22,7 @@
         "yarn-error.log":true,
         "karma.conf.js":true,
         "protractor.conf.js":true,
-        "upgrade.md":true,
+        // "upgrade.md":true,
         "src/test.ts":true
     }
 }
