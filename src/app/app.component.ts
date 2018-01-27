@@ -22,11 +22,11 @@ export class AppComponent {
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
     apollo: Apollo, httpLink: HttpLink) {
-    var grqphqlUrl=environment.dataServer;
+    var grqphqlUrl = environment.dataServer;
     apollo.create({
       link: createUploadLink({
         uri: `${grqphqlUrl}/graphql`,
-        credentials : "include"
+        credentials: "include"
       }),
       cache: new InMemoryCache()
     });
