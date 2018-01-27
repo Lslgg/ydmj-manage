@@ -16,6 +16,7 @@ import 'rxjs/add/operator/mergeMap';
     <router-outlet></router-outlet> 
   `
 })
+
 export class AppComponent {
 
   constructor(private router: Router,
