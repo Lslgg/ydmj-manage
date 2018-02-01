@@ -118,6 +118,7 @@ export class AddPowerComponent implements OnInit {
                 return info;
             });
             this.powerList = list;
+            console.log(this.powerList);
         })
 
     }

@@ -3,28 +3,28 @@ import { Router } from '@angular/router';
 import gql from 'graphql-tag';
 
 @Component({
-    selector: 'mall-score',
-    templateUrl: 'score.html',
+    selector: 'mall-userBusiness',
+    templateUrl: 'userBusiness.html',
 })
 
-export class ScoreComponent implements OnInit {
+export class UserBusinessComponent implements OnInit {
 
     typeList: Array<{ key: string, value: string }> = [
         { key: "", value: "全部" },
         { key: "大厅广告", value: "大厅广告" },
         { key: "活动广告", value: "活动广告" }];
 
-    business: TableStr = {
-        data: gql`query($index:Int,$size:Int,$info:searchBusiness){
-            list:getBusinessPage(pageIndex:$index,pageSize:$size,business:$info){
-                id,name,isValid 
+    userBusiness: TableStr = {
+        data: gql`query($index:Int,$size:Int,$info:searchUserBusiness){
+            list:getUserBusinessPage(pageIndex:$index,pageSize:$size,userBusiness:$info){
+                id, user:User{name:username}, business:Business{name}
             }
-            count:getBusinessCount(business:$info)
+            count:getUserBusinessCount(userBusiness:$info)
         }`,
         delete: gql`mutation($id:String){
-            deleteBusiness(id:$id)
+            deleteUserBusiness(id:$id)
         }`,
-        url: "admin/addScore",
+        url: "admin/UserBusiness",
         where: { advert: {} }
     };
 
