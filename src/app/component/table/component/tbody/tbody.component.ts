@@ -125,13 +125,13 @@ export class TbodyComponent implements OnInit {
 
     //查找统计
     private findTotal(total: any) {
-        if(!total) return ;
+        if (!total) return;
         let keys = Object.keys(total);
         for (var i = 0, num = keys.length; i < num; i++) {
             var info = this.totalList[i];
             if (info && info.name == keys[i]) {
-                var sum=total[info.name];
-                info.total = sum?sum:0;
+                var sum = total[info.name];
+                info.total = sum ? sum : 0;
             }
         }
 
@@ -157,8 +157,8 @@ export class TbodyComponent implements OnInit {
     private getStrWhere(): string {
         var where = [];
         this.conditionList.filter(p => p.value).forEach(p => {
-            p.value = this.getFindValue(p);
-            where.push(`${p.field} ${p.condition} '${p.value}'`);
+            var value = this.getFindValue(p);
+            where.push(`${p.field} ${p.condition} '${value}'`);
         });
         if (where.length > 0) {
             return where.join(" and ");
@@ -225,12 +225,17 @@ export class TbodyComponent implements OnInit {
 
     //拼接单个条件字符串
     private setObjWhereStr(info: Condition): string {
-        info.value = this.getFindValue(info);
-        var isString = typeof info.value == "string";
-        //如果是字符串类型条件后值加双引号
-        info.value = isString ? `\\\"${info.value}\\\"` : `${info.value}`;
-        var field = `"${info.field}":"{\\\"${info.condition}\\\":${info.value}}"`;
-        return field;
+        var value = this.getFindValue(info);
+        if (info.condition != "like") {
+            var isString = typeof value == "string";
+            //如果是字符串类型条件后值加双引号
+            value = isString ? `\\\"${value}\\\"` : `${value}`;
+            var field = `"${info.field}":"{\\\"${info.condition}\\\":${value}}"`;
+            return field;
+        } else if (info.condition == "like") {
+            var field = `"${info.field}":"${value}"`;
+            return field;
+        }
     }
 
 

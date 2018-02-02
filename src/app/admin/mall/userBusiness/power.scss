@@ -1,0 +1,19 @@
+.powerList {
+  list-style-type: none;
+  li {
+    float: left;
+  }
+  .badge{
+      margin-right: 12px;
+  }
+}
+
+.addPower{
+  .mat-card{
+    padding: 24px 12px;
+  }
+  .menuLeft{
+    min-width: 180px;
+    margin-bottom: 8px;
+  }
+}

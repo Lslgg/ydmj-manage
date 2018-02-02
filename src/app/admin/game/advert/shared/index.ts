@@ -1,1 +1,1 @@
-export * from "./advert.model"
+// export * from "./advert.model"

@@ -105,7 +105,7 @@ export class PagiationComponent implements OnInit {
 
     getNextPage() {
         this.nowPageIndex = this.nowPageIndex + 1;
-        if (this.nowPageIndex >= this.LastPage) {
+        if (this.nowPageIndex > this.LastPage) {
             this.nowPageIndex = 1;
         }
         this.getPage(this.nowPageIndex);

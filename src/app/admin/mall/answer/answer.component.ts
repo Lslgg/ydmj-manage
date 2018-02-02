@@ -10,9 +10,8 @@ import gql from 'graphql-tag';
 export class AnswerComponent implements OnInit {
 
     typeList: Array<{ key: string, value: string }> = [
-        { key: "", value: "全部" },
-        { key: "大厅广告", value: "大厅广告" },
-        { key: "活动广告", value: "活动广告" }];
+        { key: "常见问答", value: "常见问答" }, 
+    ];
 
     answer: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchAnswer){

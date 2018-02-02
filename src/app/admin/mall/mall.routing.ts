@@ -6,6 +6,7 @@ import { AnswerRoutes, AnswerList } from './answer/answer.routing';
 import { GoodsRoutes, GoodsList } from './goods/goods.routing';
 import { GoodsTypeList, GoodsTypeRoutes } from './goodsType/goodsType.routing';
 import { ScoreList, ScoreRoutes } from './score/score.routing';
+import { UserBusinessRoutes, UserBusinessList } from './userBusiness/userBusiness.routing';
 
 
 
@@ -22,6 +23,9 @@ routes = routes.concat(GoodsRoutes);
 routes = routes.concat(GoodsTypeRoutes);
 //积分统计管理
 routes = routes.concat(ScoreRoutes);
+//商家用户管理
+routes = routes.concat(UserBusinessRoutes);
+
 
 export var MallRoutes: Routes = routes;
 
@@ -33,6 +37,7 @@ export const MallList = [
     GoodsList,
     GoodsTypeList,
     ScoreList,
+    UserBusinessList,
 ]
 
 

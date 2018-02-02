@@ -1,2 +1,2 @@
 export * from "./business.component"
-// export * from "./component/addAdvert.component"
+export * from "./component/addBusiness.component"

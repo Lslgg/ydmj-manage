@@ -16,6 +16,7 @@ import 'rxjs/add/operator/mergeMap';
     <router-outlet></router-outlet> 
   `
 })
+
 export class AppComponent {
 
   constructor(private router: Router,
@@ -24,10 +25,14 @@ export class AppComponent {
     apollo: Apollo, httpLink: HttpLink) {
     var grqphqlUrl = environment.dataServer;
     apollo.create({
+<<<<<<< HEAD
       link: createUploadLink({
         uri: `${grqphqlUrl}/graphql`,
         credentials: "include"
       }),
+=======
+      link: createUploadLink({ uri: `${grqphqlUrl}/graphql`, credentials: "include" }),
+>>>>>>> a64510752e0d4c4b5ec9dc42003a5d140ad4e062
       cache: new InMemoryCache()
     });
     this.setWebSiteTitle();

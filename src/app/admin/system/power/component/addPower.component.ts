@@ -110,8 +110,8 @@ export class AddPowerComponent implements OnInit {
 
         this.apollo.query<{ list: any }>({ query: sql }).subscribe(({ data }) => {
             let operationMap = Power.operationMap();
+            var info = { isCheck: false, operationMap: new Array<string>(), operation: [], list: [] };
             var list = data.list.map(val => {
-                var info = { isCheck: false, operationMap: new Array<string>(), operation: [], list: [] };
                 Object.assign(info, val);
                 var oList = info.operation.map(item => operationMap.get(item));
                 info.list = oList;
