@@ -24,7 +24,7 @@ export class UserBusinessComponent implements OnInit {
         delete: gql`mutation($id:String){
             deleteUserBusiness(id:$id)
         }`,
-        url: "admin/UserBusiness",
+        url: "admin/addUserBusiness",
         where: { advert: {} }
     };
 
