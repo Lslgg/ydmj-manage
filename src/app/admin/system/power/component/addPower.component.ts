@@ -108,10 +108,14 @@ export class AddPowerComponent implements OnInit {
             list:getPowerWhere(power:{isValid:true}) {id title operation  url } 
         }`;
 
-        this.apollo.query<{ list: any }>({ query: sql }).subscribe(({ data }) => {
+        this.apollo.query<{ list: any }>({ 
+            query: sql,
+            fetchPolicy: "network-only",
+        }).subscribe(({ data }) => {
             let operationMap = Power.operationMap();
-            var info = { isCheck: false, operationMap: new Array<string>(), operation: [], list: [] };
+            
             var list = data.list.map(val => {
+                var info = { isCheck: false, operationMap: new Array<string>(), operation: [], list: [] };
                 Object.assign(info, val);
                 var oList = info.operation.map(item => operationMap.get(item));
                 info.list = oList;

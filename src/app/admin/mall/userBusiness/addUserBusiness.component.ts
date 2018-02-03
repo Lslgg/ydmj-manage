@@ -43,17 +43,17 @@ export class AddUserBusinessComponent implements OnInit {
             var businessList: Array<String> = [];
             for (var i = 0; i < this.dataList.length; i++) {
                 if (this.dataList[i]['isCheck']) { 
-                    businessList.push("\""+this.dataList[i]['id']+"\"");   
+                    businessList.push(this.dataList[i]['id']);   
                 }
             }
-            var sql = gql`mutation deleteUserBusinessAll($list:[searchUserBusiness]){
-                deleteUserBusinessAll(userBusiness:$list)
+            var sql = gql`mutation deleteUserBusinessAll($list:[String]){
+                deleteUserBusinessAll(id:$list)
             }`;
             var mutationInfo = {
                 mutation: sql,
-                variables: { list: {"_id":`{"$in":"[${businessList}]"}`} }
+                variables: { list: businessList }
             }
-            this.apollo.mutate(mutationInfo).subscribe(({ data }) => {                
+            this.apollo.mutate(mutationInfo).subscribe(({ data }) => {                                
                 alert(data.deleteUserBusinessAll ? "删除成功！" : "删除失败！");
                 this.getRolePower();
             });
