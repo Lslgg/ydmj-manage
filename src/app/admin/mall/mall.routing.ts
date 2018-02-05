@@ -10,22 +10,16 @@ import { UserBusinessRoutes, UserBusinessList } from './userBusiness/userBusines
 
 
 
-var routes: Routes = [];
-//商家管理
-routes = routes.concat(BusinessRoutes);
-//广告管理
-routes = routes.concat(AdvertmRoutes);
-//问答管理
-routes = routes.concat(AnswerRoutes);
-//商品管理
-routes = routes.concat(GoodsRoutes);
-//商品类别管理
-routes = routes.concat(GoodsTypeRoutes);
-//积分统计管理
-routes = routes.concat(ScoreRoutes);
-//商家用户管理
-routes = routes.concat(UserBusinessRoutes);
-
+var routes: Routes = [
+    ...BusinessRoutes,
+    ...AdvertmRoutes,
+    ...AnswerRoutes,
+    ...GoodsRoutes,
+    ...GoodsTypeRoutes,
+    ...ScoreRoutes,
+    ...UserBusinessRoutes,
+    
+];
 
 export var MallRoutes: Routes = routes;
 

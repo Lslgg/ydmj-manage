@@ -3,10 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminRoutes, AdminComponentList } from './admin/admin.routing';
 import { LoginComponent,  } from './login.component';
 
-var routes: Routes = [];
-
-//登录
-routes = routes.concat(AdminRoutes);
+var routes: Routes = [
+    ...AdminRoutes
+];
 
 export var routeList: Routes = [
     {

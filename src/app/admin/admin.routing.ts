@@ -11,17 +11,13 @@ import { GameRoutes,GameList } from './game/game.routing';
 import { MallRoutes, MallList } from './mall/mall.routing';
 
 
-var routes:Routes=[];
-//首页
-routes = routes.concat(MainRoutes);
-//系统管理
-routes=routes.concat(systemRoutes);
-//游戏栏目管理
-routes=routes.concat(GameRoutes);
-//积分商城栏目管理
-routes=routes.concat(MallRoutes);
-//错误页面请放最后
-routes = routes.concat(NotFindPageRoutes);
+var routes:Routes=[
+  ...MainRoutes,
+  ...systemRoutes,
+  ...GameRoutes,
+  ...MallRoutes,
+  ...NotFindPageRoutes,
+];
 
 export var routeList: Routes = [
   {
