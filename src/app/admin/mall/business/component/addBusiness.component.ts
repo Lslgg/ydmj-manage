@@ -13,20 +13,20 @@ export class AddBusinessComponent implements OnInit {
     businessForm: FormGroup = this.fb.group({
         id: [''],        
         name: ['', Validators.required],
-        phone_num: ['', Validators.required],
-        address: ['', Validators.required],
-        b_hours: ['', Validators.required],
+        address: ['', Validators.required],                  
+        phone: ['', Validators.required],
+        hours: ['', Validators.required],
         brief: ['', Validators.required],
-        score: [0,],        
-        imageIds: [''],    
-        trans_times: [0,],                    
+        imageIds: ['', Validators.required],
+        times: [0, Validators.required],
+        score: [0, Validators.required],    
         isValid: [true],
     });
 
     business: FormStr = {
         data: gql`query($id:String){
             info:getBusinessById(id:$id){
-            id,name,phone_num,address,b_hours,address,b_hours,brief,score,trans_times,imageIds:Images{ id name:originalname url:path }
+            id,name,address,phone,hours,brief,times,score,imageIds:Images{ id name:originalname url:path }
             }
         }`,
         save: gql`mutation($info:inputBusiness){

@@ -1,9 +1,9 @@
-<template-panel-form Title="添加权限">
+<template-panel-form Title="添加商家">
   <div class="row addPower">
     <div class="col-md-2 menuLeft">
       <mat-card class="example-card">
         <mat-card-header>
-          <mat-card-title>角色({{this.roleName}})</mat-card-title>
+          <mat-card-title>用户({{this.userName}})</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <data-tree [treeList]="treeList" (onUpdateTree)="onUpdateTree($event)"></data-tree>
@@ -23,10 +23,10 @@
         <mat-card-content style="margin-top:24px;">
           <data-table [isSearch]="false">
             <thead class="data-thead" [dataList]="dataList">
-              <th class="data-th" name="Business.name" type="object">商家名ss</th>
+              <th class="data-th" name="Business.name" type="object">商家名</th>
               <th class="data-th" name="createAt" type="date">创建日期</th>
             </thead>
-            <tbody class="data-tbody" #tableRolePower [isShowPagiation]="false" [IsAutomaticList]="false" [pageSize]="100" [dataList]="dataList"></tbody>
+            <tbody class="data-tbody" [isShowPagiation]="false" [IsAutomaticList]="false" [pageSize]="100" [dataList]="dataList"></tbody>
           </data-table>
         </mat-card-content>
       </mat-card>
@@ -34,12 +34,12 @@
   </div>
 </template-panel-form>
 
-<data-modal #funModal title="功能权限" (onModalSave)="onModalSave(tablePower.dataList)">
+<data-modal #funModal title="功能权限" (onModalSave)="onModalSave(tableBusiness.dataList)">
   <data-table [isSearch]="false">
-    <thead class="data-thead" [dataList]="powerList">
-      <th class="data-th" name="name" type="text">名称</th>
+    <thead class="data-thead" [dataList]="businessList">
+      <th class="data-th" name="name" type="text">商家名</th>
       <th class="data-th" name="createAt" type="date">创建日期</th>
     </thead>
-    <tbody class="data-tbody" #tablePower [isShowPagiation]="false" [IsAutomaticList]="false" [pageSize]="1000" [dataList]="powerList"></tbody>
+    <tbody class="data-tbody" #tableBusiness [isShowPagiation]="false" [IsAutomaticList]="false" [pageSize]="1000" [dataList]="businessList"></tbody>
   </data-table>
 </data-modal>

@@ -15,16 +15,15 @@ export class AddUserBusinessComponent implements OnInit {
 
     dataList: Array<object> = [];
 
-    powerList: Array<any> = [];
+    businessList: Array<any> = [];
 
-    roleId: string = "";
     userId: string = "";
 
-    roleName: string = "无";
+    userName: string = "无";
 
     constructor(private apollo: Apollo) {
-        this.getRoleTree();
-        this.getPowerList();
+        this.getUserTree();
+        this.getBusinessList();
     }
 
     ngOnInit() {
@@ -33,17 +32,17 @@ export class AddUserBusinessComponent implements OnInit {
 
     onUpdateTree(info: { id: string, name: string }) {
         var { id, name } = info;
-        this.roleId = id;
-        this.roleName = name;
-        this.getRolePower();
+        this.userId = id;
+        this.userName = name;
+        this.getUserBusiness();
     }
 
     onDelList() {
-        if (confirm("确认要删除！")) {            
+        if (confirm("确认要删除！")) {
             var businessList: Array<String> = [];
             for (var i = 0; i < this.dataList.length; i++) {
-                if (this.dataList[i]['isCheck']) { 
-                    businessList.push(this.dataList[i]['id']);   
+                if (this.dataList[i]['isCheck']) {
+                    businessList.push(this.dataList[i]['id']);
                 }
             }
             var sql = gql`mutation deleteUserBusinessAll($list:[String]){
@@ -53,22 +52,22 @@ export class AddUserBusinessComponent implements OnInit {
                 mutation: sql,
                 variables: { list: businessList }
             }
-            this.apollo.mutate(mutationInfo).subscribe(({ data }) => {                                
+            this.apollo.mutate(mutationInfo).subscribe(({ data }) => {
                 alert(data.deleteUserBusinessAll ? "删除成功！" : "删除失败！");
-                this.getRolePower();
+                this.getUserBusiness();
             });
         }
     }
 
     onModalSave(list: Array<Power>) {
-        if (this.roleId == "") {
+        if (this.userId == "") {
             alert("请选择角色！");
             return;
         }
         var businessList: Array<{ userId: String, businessId: String }> = [];
         for (var i = 0; i < list.length; i++) {
             if (list[i].isCheck) {
-                businessList.push({ userId: this.roleId, businessId: list[i].id });
+                businessList.push({ userId: this.userId, businessId: list[i].id });
             }
         }
         var sql = gql`mutation saveUserBusinessAll($list:[inputUserBusiness]){
@@ -79,13 +78,13 @@ export class AddUserBusinessComponent implements OnInit {
             variables: { list: businessList }
         }
         this.apollo.mutate<{ user: any }>(mutationInfo).subscribe(({ data }) => {
-            this.roleId = data.user[0].user.id;
-            this.getRolePower();
+            this.userId = data.user[0].user.id;
+            this.getUserBusiness();
         });
     }
 
     //查找角色权限
-    getRolePower() {
+    getUserBusiness() {
         var sql = gql`
         query($info:Json) {
             userBusiness:getUserBusinessWhere(userBusiness:{userId:$info}) {
@@ -96,40 +95,42 @@ export class AddUserBusinessComponent implements OnInit {
         this.apollo.query<{ userBusiness: Array<{ id: String, Business: { id, name } }> }>({
             query: sql,
             fetchPolicy: "network-only",
-            variables: { info: `{"$eq":"${this.roleId}"}` }
+            variables: { info: `{"$eq":"${this.userId}"}` }
         }).subscribe(({ data }) => {
-            var list = data.userBusiness.map(val => {
-                var info = { isCheck: false, Business: { id: String, name: String } };
-                Object.assign(info, val);
-                return info;
-            });
-            this.dataList = list;
+            if (data.userBusiness) {
+                var list = data.userBusiness.map(val => {
+                    var info = { isCheck: false, Business: { id: String, name: String } };
+                    Object.assign(info, val);
+                    return info;
+                });
+                this.dataList = list;
+            }
         })
     }
 
     //查找权限
-    getPowerList() {
+    getBusinessList() {
         var sql = gql`query{
             list:getBusiness {id, name, createAt}
         }`;
 
-        this.apollo.query<{ list: Array<{ id: String, name: String, createAt: Date }> }>({ query: sql }).subscribe(({ data }) => {
-            let operationMap = Power.operationMap();
-            var list = data.list.map(val => {
-                var info = { isCheck: false, id: String, name: String, createAt: Date };
-                Object.assign(info, val);
-                console.log(info);
-                return info;
-            });
-            this.powerList = list;
+        this.apollo.query<{ list: Array<{ id: String, name: String, createAt: Date }> }>({ query: sql }).subscribe(({ data }) => {            
+            if (data.list) {
+                var list = data.list.map(val => {
+                    var info = { isCheck: false, id: String, name: String, createAt: Date };
+                    Object.assign(info, val);
+                    console.log(info);
+                    return info;
+                });
+                this.businessList = list;
+            }
         })
-
     }
 
-    getRoleTree() {
+    getUserTree() {
         this.apollo.query<{ user: Array<Tree> }>({
             query: gql`query{
-                # user:getRoles {id name:roleName isLeaf:id}
+                # user:getRoles {id name:userName isLeaf:id}
                 user:getUsers {
                     id,name:username,isLeaf:id
                 },
