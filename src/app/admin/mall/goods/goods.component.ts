@@ -17,7 +17,7 @@ export class GoodsComponent implements OnInit {
     goods: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchGoods){
             list:getGoodsPage(pageIndex:$index,pageSize:$size,goods:$info){
-                id,name,isValid 
+                id,name,isValid
             }
             count:getGoodsCount(goods:$info)
         }`,
@@ -35,10 +35,4 @@ export class GoodsComponent implements OnInit {
     ngOnInit() {
 
     }
-
-    // onSetInfo(info: IdType) {
-    //     if (info.type == "title") {
-    //         this.router.navigate(['../admin/addGoods', info.id]);
-    //     }
-    // }
 }

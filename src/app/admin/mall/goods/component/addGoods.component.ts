@@ -5,39 +5,49 @@ import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular/Apollo';
 
 @Component({
-    selector: 'mall-add-goodsType',
-    templateUrl: 'addGoodsType.html',
+    selector: 'mall-add-goods',
+    templateUrl: 'addGoods.html',
 })
 
-export class AddGoodsTypeComponent implements OnInit {
+export class AddGoodsComponent implements OnInit {
 
-    goodsTypeForm: FormGroup = this.fb.group({
-        id: [''],
-        name: ['', Validators.required],
+    goodsForm: FormGroup = this.fb.group({
+        id: [''],        
         businessId: ['', Validators.required],
+        goodsTypeId: ['', Validators.required],
+        name: ['', Validators.required],
+        score: ['', Validators.required],
+        ruler: ['', Validators.required],
+        explain: ['', Validators.required],
+        stock: ['', Validators.required],
+        isValid: [false, Validators.required],        
     });
 
-    goodsType: FormStr = {
+    goods: FormStr = {
         data: gql`query($id:String){
-            info:getGoodsTypeById(id:$id){
+            info:getGoodsById(id:$id){
             id,name
             }
         }`,
         save: gql`mutation($info:inputGoodsType){
-            saveGoodsType(goodsType:$info){ id }
+            saveGoods(goodsType:$info){ id }
         }`,
-        url: "admin/goods-type",
+        url: "admin/goods",
     }
 
-    businessList: Array<{ key: string, value: string }>=[];
+    businessList: Array<{ key: string, value: string }> = [];
 
-    constructor( 
+    constructor(
         private fb: FormBuilder, private route: ActivatedRoute,
         private router: Router,
         private apollo: Apollo) {
     }
 
     ngOnInit() {
+        this.getBusinessList();
+    }
+
+    getBusinessList() {
         this.businessList = [];
         var sql = gql`query{
             list:getBusiness {id, name}
