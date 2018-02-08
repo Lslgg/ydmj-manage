@@ -12,7 +12,7 @@ import { Apollo } from 'apollo-angular/Apollo';
 export class AddGoodsComponent implements OnInit {
 
     goodsForm: FormGroup = this.fb.group({
-        id: [''],        
+        id: [''],
         businessId: ['', Validators.required],
         goodsTypeId: ['', Validators.required],
         name: ['', Validators.required],
@@ -20,22 +20,23 @@ export class AddGoodsComponent implements OnInit {
         ruler: ['', Validators.required],
         explain: ['', Validators.required],
         stock: ['', Validators.required],
-        isValid: [false, Validators.required],        
+        isValid: [false, Validators.required],
     });
 
     goods: FormStr = {
         data: gql`query($id:String){
             info:getGoodsById(id:$id){
-            id,name
+            id,name,score,ruler,explain,stock,isValid
             }
         }`,
-        save: gql`mutation($info:inputGoodsType){
-            saveGoods(goodsType:$info){ id }
+        save: gql`mutation($info:inputGoods){
+            saveGoods(goods:$info){ id }
         }`,
-        url: "admin/goods",
+        url: "admin/addGoods",
     }
 
     businessList: Array<{ key: string, value: string }> = [];
+    goodsTypeList: Array<{ key: string, value: string }> = [];
 
     constructor(
         private fb: FormBuilder, private route: ActivatedRoute,
@@ -57,6 +58,22 @@ export class AddGoodsComponent implements OnInit {
                 for (var i = 0; i < data.list.length; i++) {
                     this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }                
+            }
+        })
+    }
+
+    onChange(info: any) {
+        this.goodsTypeList = [];
+        var sql = gql`query($info:searchGoodsType){
+            list:getGoodsTypeWhere(goodsType:$info) {id, name}
+        }`;
+        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
+            query: sql, variables: { "info": { "businessId": `{"$eq":"${info}"}` } }
+        }).subscribe(({ data }) => {            
+            if (data.list) {
+                for (var i = 0; i < data.list.length; i++) {
+                    this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
+                }
             }
         })
     }
