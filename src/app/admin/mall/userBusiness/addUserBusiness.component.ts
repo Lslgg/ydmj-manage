@@ -118,8 +118,7 @@ export class AddUserBusinessComponent implements OnInit {
             if (data.list) {
                 var list = data.list.map(val => {
                     var info = { isCheck: false, id: String, name: String, createAt: Date };
-                    Object.assign(info, val);
-                    console.log(info);
+                    Object.assign(info, val);                    
                     return info;
                 });
                 this.businessList = list;

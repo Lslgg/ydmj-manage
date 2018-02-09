@@ -61,6 +61,8 @@ export class TbodyComponent implements OnInit {
     //统计处理的事件
     @Output() onLoadTotal = new EventEmitter<any>();
 
+    @Output() onData = new EventEmitter<Boolean>();
+
     //获取分页控件
     @ContentChild(PagiationComponent) Pagiation: PagiationComponent;
 
@@ -120,6 +122,7 @@ export class TbodyComponent implements OnInit {
             this.pageCount = count;
             this.thead.dataList = this.dataList;
             this.findTotal(total);
+            this.onData.emit(true);            
         }
     }
 
@@ -134,7 +137,7 @@ export class TbodyComponent implements OnInit {
                 info.total = sum ? sum : 0;
             }
         }
-
+        this.onData.emit(true);
     }
 
 
