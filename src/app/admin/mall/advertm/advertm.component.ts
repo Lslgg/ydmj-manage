@@ -29,7 +29,7 @@ export class AdvertmComponent implements OnInit {
     };
 
     constructor(private router: Router) {
-
+      
     }
 
     ngOnInit() {

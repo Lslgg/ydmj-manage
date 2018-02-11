@@ -7,8 +7,8 @@
         <th class="data-th" name="User.username" type="object" title="用户名"></th>
         <th class="data-th" name="code" type="text" title="兑换码"></th>
         <th class="data-th" name="state" type="text" title="状态"></th>
-        <th class="data-th" name="createAt" type="date" title="兑换时间"></th>        
-        <th class="data-th" name="endTime" type="date" title="过期时间"></th>        
+        <th class="data-th" name="createAt" type="dateTime" title="兑换时间"></th>        
+        <th class="data-th" name="endTime" type="dateTime" title="过期时间"></th>        
       </thead>
       <tbody class="data-tbody" #tbody operation="详细" (onData)="onData($event,tbody.dataList)"></tbody>
     </data-table>

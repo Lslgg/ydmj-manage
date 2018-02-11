@@ -20,6 +20,7 @@ export class AddGoodsComponent implements OnInit {
         ruler: ['', Validators.required],
         explain: ['', Validators.required],
         stock: ['', Validators.required],
+        validTime: ['', Validators.required],
         isValid: [false, Validators.required],
     });
 
@@ -37,6 +38,13 @@ export class AddGoodsComponent implements OnInit {
 
     businessList: Array<{ key: string, value: string }> = [];
     goodsTypeList: Array<{ key: string, value: string }> = [];
+    timeList: Array<{ key: string, value: string }> = [
+        { key: "259200000", value: "3天内有效" },
+        { key: "604800000", value: "7天内有效" },
+        { key: "1296000000", value: "15天内有效" },
+        { key: "2592000000", value: "30天内有效" },
+        { key: "7776000000", value: "90天内有效" },
+    ];
 
     constructor(
         private fb: FormBuilder, private route: ActivatedRoute,
@@ -57,7 +65,7 @@ export class AddGoodsComponent implements OnInit {
             if (data.list) {
                 for (var i = 0; i < data.list.length; i++) {
                     this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
-                }                
+                }
             }
         })
     }
@@ -69,7 +77,7 @@ export class AddGoodsComponent implements OnInit {
         }`;
         this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
             query: sql, variables: { "info": { "businessId": `{"$eq":"${info}"}` } }
-        }).subscribe(({ data }) => {            
+        }).subscribe(({ data }) => {
             if (data.list) {
                 for (var i = 0; i < data.list.length; i++) {
                     this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });

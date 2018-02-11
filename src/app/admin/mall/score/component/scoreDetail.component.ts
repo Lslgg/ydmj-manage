@@ -30,19 +30,17 @@ export class ScoreDetailComponent implements OnInit {
 
     }
 
-    onData(info:any,dataList:any) {
-        var date = new Date();
-        var dstr = date.toLocaleDateString();
-        for(var i=0;i<dataList.length;i++) {            
-            if(dataList[i].state == 1 ) {
+    onData(info: any, dataList: any) {
+        for (var i = 0; i < dataList.length; i++) {
+            if (dataList[i].state == 1) {
                 dataList[i].state = '已兑换';
-            } else if((new Date(dataList[i].endTime).toLocaleDateString() > dstr)) {
-                dataList[i].state = '已过期';                
-            } 
+            } else if ((new Date(dataList[i].endTime).getTime() > new Date().getTime())) {
+                dataList[i].state = '已过期';
+            }
             else {
                 dataList[i].state = '未兑换';
             }
-        }                
+        }
     }
 
 }

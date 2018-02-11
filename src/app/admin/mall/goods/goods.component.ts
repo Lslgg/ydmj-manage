@@ -27,7 +27,13 @@ export class GoodsComponent implements OnInit {
     };
 
     constructor(private router: Router,private apollo: Apollo) {
-
+        var save=gql`mutation {
+            saveTranUser
+            saveTranBusiness
+          }`;
+        this.apollo.mutate({mutation:save}).subscribe(({data})=>{
+            console.log(data);
+        })
     }
 
     ngOnInit() {
