@@ -14,36 +14,40 @@ export class AddGoodsTypeComponent implements OnInit {
     goodsTypeForm: FormGroup = this.fb.group({
         id: [''],
         name: ['', Validators.required],
-        business_id: ['', Validators.required],
-        isValid: [true],
+        businessId: ['', Validators.required],
     });
 
     goodsType: FormStr = {
         data: gql`query($id:String){
             info:getGoodsTypeById(id:$id){
-            id,name,imageIds:Images{ id name:originalname url:path }
+            id,name
             }
-        }`,    
+        }`,
         save: gql`mutation($info:inputGoodsType){
             saveGoodsType(goodsType:$info){ id }
         }`,
         url: "admin/goods-type",
     }
 
-    business: Array<{ key: string, value: string }>;
+    businessList: Array<{ key: string, value: string }>=[];
 
-
-    constructor( @Inject("commonData") private cdate: CommonData,
+    constructor( 
         private fb: FormBuilder, private route: ActivatedRoute,
         private router: Router,
-        private apollo:Apollo) {
+        private apollo: Apollo) {
     }
 
     ngOnInit() {
-        this.apollo.query({query:gql`
-            query($id:String){
-                getBusinessWhere()
+        this.businessList = [];
+        var sql = gql`query{
+            list:getBusiness {id, name}
+        }`;
+        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({ query: sql }).subscribe(({ data }) => {
+            if (data.list) {
+                for (var i = 0; i < data.list.length; i++) {
+                    this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
+                }                
             }
-        `})
-     }
+        })
+    }
 }

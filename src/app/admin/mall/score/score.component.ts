@@ -9,22 +9,17 @@ import gql from 'graphql-tag';
 
 export class ScoreComponent implements OnInit {
 
-    typeList: Array<{ key: string, value: string }> = [
-        { key: "", value: "全部" },
-        { key: "大厅广告", value: "大厅广告" },
-        { key: "活动广告", value: "活动广告" }];
-
     business: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchBusiness){
             list:getBusinessPage(pageIndex:$index,pageSize:$size,business:$info){
-                id,name,isValid 
+                id,name,isValid,createAt
             }
             count:getBusinessCount(business:$info)
         }`,
         delete: gql`mutation($id:String){
             deleteBusiness(id:$id)
         }`,
-        url: "admin/addScore",
+        url: "admin/scoreList",
         where: { advert: {} }
     };
 
@@ -36,9 +31,10 @@ export class ScoreComponent implements OnInit {
 
     }
 
-    // onSetInfo(info: IdType) {
-    //     if (info.type == "title") {
-    //         this.router.navigate(['../admin/addGoodsType', info.id]);
-    //     }
-    // }
+    onSetInfo(info:any) {
+        if(info.type == "详细") {
+            this.router.navigate(['/admin/scoreList/'+info.id]);
+        }
+    }
+
 }

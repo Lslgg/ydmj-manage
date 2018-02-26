@@ -9,11 +9,6 @@ import gql from 'graphql-tag';
 
 export class BusinessComponent implements OnInit {
 
-    typeList: Array<{ key: string, value: string }> = [
-        { key: "", value: "全部" },
-        { key: "大厅广告", value: "大厅广告" },
-        { key: "活动广告", value: "活动广告" }];
-
     business: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchBusiness){
             list:getBusinessPage(pageIndex:$index,pageSize:$size,business:$info){
@@ -36,9 +31,4 @@ export class BusinessComponent implements OnInit {
 
     }
 
-    // onSetInfo(info: IdType) {
-    //     if (info.type == "title") {
-    //         this.router.navigate(['../admin/addBusiness', info.id]);
-    //     }
-    // }
 }

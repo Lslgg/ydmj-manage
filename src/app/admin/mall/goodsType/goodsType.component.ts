@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
 
 @Component({
     selector: 'mall-goodsType',
@@ -17,28 +18,34 @@ export class GoodsTypeComponent implements OnInit {
     goodsType: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchGoodsType){
             list:getGoodsTypePage(pageIndex:$index,pageSize:$size,goodsType:$info){
-                id,name,isValid 
+                id,name,Business{name}
             }
             count:getGoodsTypeCount(goodsType:$info)
         }`,
         delete: gql`mutation($id:String){
             deleteGoodsType(id:$id)
         }`,
-        url: "admin/addGoodsType",
+        url: "admin/add-goods-type",
         where: { advert: {} }
     };
 
-    constructor(private router: Router) {
+    constructor(private router: Router,private apollo: Apollo) {
 
     }
 
+    businessList: Array<{ key: string, value: string }> = [];
     ngOnInit() {
-
+        this.businessList = [];
+        var sql = gql`query{
+            list:getBusiness {id, name}
+        }`;
+        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({ query: sql }).subscribe(({ data }) => {
+            if (data.list) {
+                for (var i = 0; i < data.list.length; i++) {
+                    this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
+                }                
+            }
+        })
     }
 
-    // onSetInfo(info: IdType) {
-    //     if (info.type == "title") {
-    //         this.router.navigate(['../admin/addGoodsType', info.id]);
-    //     }
-    // }
 }

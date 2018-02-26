@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
 
 @Component({
     selector: 'mall-goods',
@@ -9,15 +10,12 @@ import gql from 'graphql-tag';
 
 export class GoodsComponent implements OnInit {
 
-    typeList: Array<{ key: string, value: string }> = [
-        { key: "", value: "全部" },
-        { key: "大厅广告", value: "大厅广告" },
-        { key: "活动广告", value: "活动广告" }];
+    businessList: Array<{ key: string, value: string }> = [];
 
     goods: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchGoods){
             list:getGoodsPage(pageIndex:$index,pageSize:$size,goods:$info){
-                id,name,isValid 
+                id,name,Business{id,name},isValid
             }
             count:getGoodsCount(goods:$info)
         }`,
@@ -28,17 +26,27 @@ export class GoodsComponent implements OnInit {
         where: { advert: {} }
     };
 
-    constructor(private router: Router) {
-
+    constructor(private router: Router,private apollo: Apollo) {
+        var save=gql`mutation {
+            saveTranUser
+            saveTranBusiness
+          }`;
+        this.apollo.mutate({mutation:save}).subscribe(({data})=>{
+            console.log(data);
+        })
     }
 
     ngOnInit() {
-
+        this.businessList = [];
+        var sql = gql`query{
+            list:getBusiness {id, name}
+        }`;
+        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({ query: sql }).subscribe(({ data }) => {
+            if (data.list) {
+                for (var i = 0; i < data.list.length; i++) {
+                    this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
+                }
+            }
+        })
     }
-
-    // onSetInfo(info: IdType) {
-    //     if (info.type == "title") {
-    //         this.router.navigate(['../admin/addGoods', info.id]);
-    //     }
-    // }
 }

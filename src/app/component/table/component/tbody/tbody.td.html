@@ -34,6 +34,10 @@
     {{ title | date:'yyyy-MM-dd'}}
   </ng-container>
 
+  <ng-container *ngSwitchCase="'dateTime'">
+    {{ title | date:'yyyy-MM-dd H:m:s'}}
+  </ng-container>
+
   <ng-container *ngSwitchCase="'object'">
       {{ title }}
  </ng-container>

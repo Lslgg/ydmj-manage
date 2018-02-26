@@ -1,0 +1,29 @@
+<template-panel-form Title="添加商品">
+  <data-form [formInfo]="goodsForm" [dataStr]="goods">
+    <form-item name="businessId" title="商家" type="select" (onChange)="onChange($event)" [dataList]="businessList">
+      <form-validator type="required" title="请输入商家名"></form-validator>
+    </form-item>
+    <form-item name="goodsTypeId" title="商品类别" type="select" [dataList]="goodsTypeList">
+      <form-validator type="required" title="请输入商家名"></form-validator>
+    </form-item>
+    <form-item name="name" title="商品名">
+      <form-validator type="required" title="请输入类别名"></form-validator>
+    </form-item>
+    <form-item name="score" title="兑换积分">
+      <form-validator type="isNumber" title="请输入类别名"></form-validator>
+    </form-item>
+    <form-item name="ruler" title="兑换规则">
+      <form-validator type="required" title="请输入类别名"></form-validator>
+    </form-item>
+    <form-item name="explain" title="兑换解释">
+      <form-validator type="required" title="请输入类别名"></form-validator>
+    </form-item>
+    <form-item name="stock" title="商品库存">
+      <form-validator type="isNumber" title="请输入类别名"></form-validator>
+    </form-item>
+    <form-item name="validTime" title="有效时间" type="select" [dataList]="timeList">
+      <form-validator type="required" title="请输入商家名"></form-validator>
+    </form-item>
+    <form-item name="isValid" title="是否启用" type="checkbox"></form-item>
+  </data-form>
+</template-panel-form>

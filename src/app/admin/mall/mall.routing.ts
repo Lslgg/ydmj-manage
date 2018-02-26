@@ -7,6 +7,7 @@ import { GoodsRoutes, GoodsList } from './goods/goods.routing';
 import { GoodsTypeList, GoodsTypeRoutes } from './goodsType/goodsType.routing';
 import { ScoreList, ScoreRoutes } from './score/score.routing';
 import { UserBusinessRoutes, UserBusinessList } from './userBusiness/userBusiness.routing';
+import { TransactRoutes, TransactList } from './transact/transact.routing';
 
 
 
@@ -18,6 +19,7 @@ var routes: Routes = [
     ...GoodsTypeRoutes,
     ...ScoreRoutes,
     ...UserBusinessRoutes,
+    ...TransactRoutes,
     
 ];
 
@@ -32,6 +34,7 @@ export const MallList = [
     GoodsTypeList,
     ScoreList,
     UserBusinessList,
+    TransactList,
 ]
 
 
