@@ -20,7 +20,7 @@ export class AddGoodsTypeComponent implements OnInit {
     goodsType: FormStr = {
         data: gql`query($id:String){
             info:getGoodsTypeById(id:$id){
-            id,name
+            id,name,businessId
             }
         }`,
         save: gql`mutation($info:inputGoodsType){
@@ -48,6 +48,7 @@ export class AddGoodsTypeComponent implements OnInit {
                     this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }                
             }
+            console.log(this.businessList);
         })
     }
 }

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular/Apollo';
+import { resolve } from 'url';
+import { reject } from 'q';
 
 @Component({
     selector: 'mall-add-goods',
@@ -11,6 +13,7 @@ import { Apollo } from 'apollo-angular/Apollo';
 
 export class AddGoodsComponent implements OnInit {
 
+    flag: Boolean = false;
     goodsForm: FormGroup = this.fb.group({
         id: [''],
         businessId: ['', Validators.required],
@@ -27,14 +30,14 @@ export class AddGoodsComponent implements OnInit {
     goods: FormStr = {
         data: gql`query($id:String){
             info:getGoodsById(id:$id){
-            id,name,score,ruler,explain,stock,isValid
+            id,name,score,ruler,explain,stock,isValid,businessId:Business{id}
             }
         }`,
         save: gql`mutation($info:inputGoods){
             saveGoods(goods:$info){ id }
         }`,
-        url: "admin/addGoods",
-    }
+        url: "admin/goods",
+    };
 
     businessList: Array<{ key: string, value: string }> = [];
     goodsTypeList: Array<{ key: string, value: string }> = [];
@@ -45,6 +48,7 @@ export class AddGoodsComponent implements OnInit {
         { key: "2592000000", value: "30天内有效" },
         { key: "7776000000", value: "90天内有效" },
     ];
+    businessId:Array<String> = [];
 
     constructor(
         private fb: FormBuilder, private route: ActivatedRoute,
@@ -52,22 +56,52 @@ export class AddGoodsComponent implements OnInit {
         private apollo: Apollo) {
     }
 
-    ngOnInit() {
-        this.getBusinessList();
+    async ngOnInit() {
+        var businessList = await this.getBusinessList();
+        if (businessList) {
+            for (var i = 0; i < businessList.length; i++) {
+                this.businessList.push({ key: businessList[i].id + '', value: businessList[i].name + '' });
+                this.businessId.push(businessList[i].id);
+            }
+        }
+        this.getGoodsTypeList();
+        // var goodsTypeList = await this.getBusinessList();
+        this.flag = true;
     }
 
-    getBusinessList() {
+    async getBusinessList() {
         this.businessList = [];
         var sql = gql`query{
             list:getBusiness {id, name}
         }`;
-        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({ query: sql }).subscribe(({ data }) => {
+        return new Promise<any>((resolve, reject) => {
+            var info = this.apollo.query<{ list: Array<{ id: String, name: String }> }>({ query: sql }).subscribe(({ data }) => {
+                resolve(data.list);
+                return;                                       
+            })
+        });
+    }
+
+    getGoodsTypeList() {
+        this.goodsTypeList = [];
+        var sql = gql`query($info:String){
+            list:getGoodsTypeByIdIn(id:$info) {id, name}
+        }`;
+        return this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
+            query: sql,
+            variables: { "info":  `${this.businessId}` }
+        }).subscribe(({ data }) => {
+            console.log(data);
             if (data.list) {
                 for (var i = 0; i < data.list.length; i++) {
-                    this.businessList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
+                    this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }
             }
+            return data.list;
         })
+    }
+    onDone(info:any) {
+        console.log(info);
     }
 
     onChange(info: any) {
@@ -75,14 +109,16 @@ export class AddGoodsComponent implements OnInit {
         var sql = gql`query($info:searchGoodsType){
             list:getGoodsTypeWhere(goodsType:$info) {id, name}
         }`;
-        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
-            query: sql, variables: { "info": { "businessId": `{"$eq":"${info}"}` } }
-        }).subscribe(({ data }) => {
+        return this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
+            query: sql,
+            variables: { "info": { "businessId": `{"$eq":"${info}"}` } }
+        }).subscribe(async ({ data }) => {
             if (data.list) {
                 for (var i = 0; i < data.list.length; i++) {
                     this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }
             }
+            return data.list;
         })
     }
 }

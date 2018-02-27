@@ -1,4 +1,4 @@
-<template-panel-table Title="商家管理" addUrl="admin/addGoods">
+<template-panel-table Title="商品管理" addUrl="admin/addGoods">
     <data-table [isSearch]="true" [moduleStr]="goods">
       <search-item name="name" title="商品名称" type="text" condition="like" class="col-md-10"></search-item>
       <search-item name="businessId" title="类型" [dataList]="businessList" type="select" condition="$eq" class="col-md-5"></search-item>

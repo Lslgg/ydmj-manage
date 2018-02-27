@@ -85,6 +85,10 @@ export class FormItemComponent implements OnInit {
             name=name[key[0]];
         }
 
+        if(this.type=='select'){            
+            name=name.id;
+        }
+
         //如果字段为文件
         if(this.type=="file"&&name.length>0&&name[0]!=null){
             this.files=name;
