@@ -29,6 +29,7 @@ export class TransactComponent implements OnInit {
             variables: { code: `${code}` },
             fetchPolicy: "network-only"
         }).subscribe(({ data }) => {
+            console.log(data.result);
             switch (data.result) {
                 case -1:
                     alert("该兑换码不存在！");
@@ -46,8 +47,7 @@ export class TransactComponent implements OnInit {
                     alert("出错了！");
                     break;
                 default:
-                    alert("出错了！");
-                    break;
+                    alert("出错了！");                    
             }
         })
     }

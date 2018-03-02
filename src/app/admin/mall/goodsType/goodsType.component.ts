@@ -18,7 +18,7 @@ export class GoodsTypeComponent implements OnInit {
     goodsType: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchGoodsType){
             list:getGoodsTypePage(pageIndex:$index,pageSize:$size,goodsType:$info){
-                id,name,Business{name}
+                id,name,Business{id,name} 
             }
             count:getGoodsTypeCount(goodsType:$info)
         }`,

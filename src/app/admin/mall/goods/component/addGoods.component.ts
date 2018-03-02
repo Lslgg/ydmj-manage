@@ -13,7 +13,6 @@ import { reject } from 'q';
 
 export class AddGoodsComponent implements OnInit {
 
-    flag: Boolean = false;
     goodsForm: FormGroup = this.fb.group({
         id: [''],
         businessId: ['', Validators.required],
@@ -30,7 +29,7 @@ export class AddGoodsComponent implements OnInit {
     goods: FormStr = {
         data: gql`query($id:String){
             info:getGoodsById(id:$id){
-            id,name,score,ruler,explain,stock,isValid,businessId:Business{id}
+            id,name,score,ruler,explain,stock,isValid,businessId:Business{id},goodsTypeId:GoodsType{id},validTime
             }
         }`,
         save: gql`mutation($info:inputGoods){
@@ -41,14 +40,14 @@ export class AddGoodsComponent implements OnInit {
 
     businessList: Array<{ key: string, value: string }> = [];
     goodsTypeList: Array<{ key: string, value: string }> = [];
-    timeList: Array<{ key: string, value: string }> = [
-        { key: "259200000", value: "3天内有效" },
-        { key: "604800000", value: "7天内有效" },
-        { key: "1296000000", value: "15天内有效" },
-        { key: "2592000000", value: "30天内有效" },
-        { key: "7776000000", value: "90天内有效" },
+    timeList: Array<{ key: Number, value: string }> = [
+        { key: 259200000, value: "3天内有效" },
+        { key: 604800000, value: "7天内有效" },
+        { key: 1296000000, value: "15天内有效" },
+        { key: 2592000000, value: "30天内有效" },
+        { key: 7776000000, value: "90天内有效" },
     ];
-    businessId:Array<String> = [];
+    businessId: Array<String> = [];
 
     constructor(
         private fb: FormBuilder, private route: ActivatedRoute,
@@ -56,7 +55,11 @@ export class AddGoodsComponent implements OnInit {
         private apollo: Apollo) {
     }
 
-    async ngOnInit() {
+    ngOnInit() {
+        this.getInit();
+    }
+
+    async getInit() {
         var businessList = await this.getBusinessList();
         if (businessList) {
             for (var i = 0; i < businessList.length; i++) {
@@ -64,9 +67,14 @@ export class AddGoodsComponent implements OnInit {
                 this.businessId.push(businessList[i].id);
             }
         }
-        this.getGoodsTypeList();
-        // var goodsTypeList = await this.getBusinessList();
-        this.flag = true;
+        var goodsTypeList = await this.getGoodsTypeList();
+        if (goodsTypeList) {
+            if (goodsTypeList) {
+                for (var i = 0; i < goodsTypeList.length; i++) {
+                    this.goodsTypeList.push({ key: goodsTypeList[i].id + '', value: goodsTypeList[i].name + '' });
+                }
+            }
+        }
     }
 
     async getBusinessList() {
@@ -77,7 +85,7 @@ export class AddGoodsComponent implements OnInit {
         return new Promise<any>((resolve, reject) => {
             var info = this.apollo.query<{ list: Array<{ id: String, name: String }> }>({ query: sql }).subscribe(({ data }) => {
                 resolve(data.list);
-                return;                                       
+                return;
             })
         });
     }
@@ -87,21 +95,16 @@ export class AddGoodsComponent implements OnInit {
         var sql = gql`query($info:String){
             list:getGoodsTypeByIdIn(id:$info) {id, name}
         }`;
-        return this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
-            query: sql,
-            variables: { "info":  `${this.businessId}` }
-        }).subscribe(({ data }) => {
-            console.log(data);
-            if (data.list) {
-                for (var i = 0; i < data.list.length; i++) {
-                    this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
-                }
-            }
-            return data.list;
+        return new Promise<any>((resolve, reject) => {
+            this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
+                query: sql,
+                variables: { "info": `${this.businessId}` }
+            }).subscribe(({ data }) => {
+                resolve(data.list);
+                return;
+            })
         })
-    }
-    onDone(info:any) {
-        console.log(info);
+
     }
 
     onChange(info: any) {
@@ -109,7 +112,7 @@ export class AddGoodsComponent implements OnInit {
         var sql = gql`query($info:searchGoodsType){
             list:getGoodsTypeWhere(goodsType:$info) {id, name}
         }`;
-        return this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
+        this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
             query: sql,
             variables: { "info": { "businessId": `{"$eq":"${info}"}` } }
         }).subscribe(async ({ data }) => {
@@ -118,7 +121,6 @@ export class AddGoodsComponent implements OnInit {
                     this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }
             }
-            return data.list;
         })
     }
 }

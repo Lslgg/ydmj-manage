@@ -1,5 +1,5 @@
-<template-panel-form Title="添加商品" *ngIf="flag">
-  <data-form [formInfo]="goodsForm" [dataStr]="goods" #dataf (onDone)="onDone(dataf.val)">
+<template-panel-form Title="添加商品">
+  <data-form [formInfo]="goodsForm" [dataStr]="goods">
     <form-item name="businessId" title="商家" type="select" (onChange)="onChange($event)" [dataList]="businessList">
       <form-validator type="required" title="请输入商家名"></form-validator>
     </form-item>
