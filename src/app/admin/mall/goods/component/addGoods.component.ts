@@ -22,6 +22,7 @@ export class AddGoodsComponent implements OnInit {
         ruler: ['', Validators.required],
         explain: ['', Validators.required],
         stock: ['', Validators.required],
+        imageIds: ['', Validators.required],
         validTime: ['', Validators.required],
         isValid: [false, Validators.required],
     });
@@ -29,7 +30,7 @@ export class AddGoodsComponent implements OnInit {
     goods: FormStr = {
         data: gql`query($id:String){
             info:getGoodsById(id:$id){
-            id,name,score,ruler,explain,stock,isValid,businessId:Business{id},goodsTypeId:GoodsType{id},validTime
+            id,name,score,ruler,explain,stock,isValid,businessId:Business{id},goodsTypeId:GoodsType{id},validTime,,imageIds:Images{ id name:originalname url:path }
             }
         }`,
         save: gql`mutation($info:inputGoods){

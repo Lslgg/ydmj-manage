@@ -41,7 +41,7 @@ export class AddAnswerComponent implements OnInit {
 
     constructor( @Inject("commonData") private cdate: CommonData,
         private fb: FormBuilder, private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router) {            
     }
 
     ngOnInit() { }
