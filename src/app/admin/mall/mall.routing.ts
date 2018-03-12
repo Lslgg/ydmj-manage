@@ -20,7 +20,7 @@ var routes: Routes = [
     ...ScoreRoutes,
     ...UserBusinessRoutes,
     ...TransactRoutes,
-    
+
 ];
 
 export var MallRoutes: Routes = routes;

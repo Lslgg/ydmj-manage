@@ -11,13 +11,9 @@ import { Apollo } from 'apollo-angular';
 export class TransactComponent implements OnInit {
 
 
-    constructor(private router: Router, private apollo: Apollo) {
+    constructor(private router: Router, private apollo: Apollo) {}
 
-    }
-
-    ngOnInit() {
-
-    }
+    ngOnInit() {}
 
     doTransact(code: String) {
 
@@ -47,7 +43,7 @@ export class TransactComponent implements OnInit {
                     alert("出错了！");
                     break;
                 default:
-                    alert("出错了！");                    
+                    alert("出错了！");
             }
         })
     }

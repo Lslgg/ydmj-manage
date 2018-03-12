@@ -115,9 +115,10 @@ export class AddGoodsComponent implements OnInit {
         }`;
         this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
             query: sql,
-            variables: { "info": { "businessId": `{"$eq":"${info}"}` } }
+            variables: { "info": { "businessId": `{"$eq":"${info}"}` } },
+            fetchPolicy: "network-only" 
         }).subscribe(async ({ data }) => {
-            if (data.list) {
+            if (data.list) {    
                 for (var i = 0; i < data.list.length; i++) {
                     this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }

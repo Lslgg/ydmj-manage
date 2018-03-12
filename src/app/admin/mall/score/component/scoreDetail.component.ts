@@ -34,11 +34,14 @@ export class ScoreDetailComponent implements OnInit {
         for (var i = 0; i < dataList.length; i++) {
             if (dataList[i].state == 1) {
                 dataList[i].state = '已兑换';
+                continue;
             } else if ((new Date(dataList[i].endTime).getTime() > new Date().getTime())) {
                 dataList[i].state = '已过期';
+                continue;
             }
             else {
                 dataList[i].state = '未兑换';
+                continue;
             }
         }
     }

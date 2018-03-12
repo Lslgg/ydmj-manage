@@ -29,9 +29,9 @@ export class ScoreListComponent implements OnInit {
     ngOnInit() {
 
     }
-    onSetInfo(info:any) {
-        if(info.type == "详细") {
-            this.router.navigate(['/admin/scoreDetail/'+info.id]);
+    onSetInfo(info: any) {
+        if (info.type == "详细") {
+            this.router.navigate(['/admin/scoreDetail/' + info.id]);
         }
     }
 }

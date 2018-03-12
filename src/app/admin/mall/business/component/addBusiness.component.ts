@@ -41,7 +41,7 @@ export class AddBusinessComponent implements OnInit {
         { key: "商家页面广告", value: "商家页面广告" }
     ];
 
-    files: Array<any> = new Array<any>();
+    // files: Array<any> = new Array<any>();
 
     constructor(@Inject("commonData") private cdate: CommonData,
         private fb: FormBuilder, private route: ActivatedRoute,

@@ -10,6 +10,8 @@ import { Apollo } from 'apollo-angular';
 
 export class GoodsTypeComponent implements OnInit {
 
+    businessList: Array<{ key: string, value: string }> = [];
+
     typeList: Array<{ key: string, value: string }> = [
         { key: "", value: "全部" },
         { key: "大厅广告", value: "大厅广告" },
@@ -32,8 +34,7 @@ export class GoodsTypeComponent implements OnInit {
     constructor(private router: Router,private apollo: Apollo) {
 
     }
-
-    businessList: Array<{ key: string, value: string }> = [];
+    
     ngOnInit() {
         this.businessList = [];
         var sql = gql`query{

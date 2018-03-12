@@ -114,11 +114,11 @@ export class AddUserBusinessComponent implements OnInit {
             list:getBusiness {id, name, createAt}
         }`;
 
-        this.apollo.query<{ list: Array<{ id: String, name: String, createAt: Date }> }>({ query: sql }).subscribe(({ data }) => {            
+        this.apollo.query<{ list: Array<{ id: String, name: String, createAt: Date }> }>({ query: sql }).subscribe(({ data }) => {
             if (data.list) {
                 var list = data.list.map(val => {
                     var info = { isCheck: false, id: String, name: String, createAt: Date };
-                    Object.assign(info, val);                    
+                    Object.assign(info, val);
                     return info;
                 });
                 this.businessList = list;
@@ -128,8 +128,7 @@ export class AddUserBusinessComponent implements OnInit {
 
     getUserTree() {
         this.apollo.query<{ user: Array<Tree> }>({
-            query: gql`query{
-                # user:getRoles {id name:userName isLeaf:id}
+            query: gql`query{                
                 user:getUsers {
                     id,name:username,isLeaf:id
                 },
