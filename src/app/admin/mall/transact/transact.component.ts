@@ -24,8 +24,7 @@ export class TransactComponent implements OnInit {
             query: sql,
             variables: { code: `${code}` },
             fetchPolicy: "network-only"
-        }).subscribe(({ data }) => {
-            console.log(data.result);
+        }).subscribe(({ data }) => {            
             switch (data.result) {
                 case -1:
                     alert("该兑换码不存在！");

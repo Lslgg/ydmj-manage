@@ -12,7 +12,7 @@ export class ScoreListComponent implements OnInit {
     goods: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchGoods){
             list:getGoodsPage(pageIndex:$index,pageSize:$size,goods:$info){
-                id,name,Business{name},score,GoodsType{name},times,createAt
+                id,name,Business{id,name},score,GoodsType{id,name},times,createAt
             }
             count:getGoodsCount(goods:$info)
         }`,

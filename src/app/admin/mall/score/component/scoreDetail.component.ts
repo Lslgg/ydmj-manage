@@ -12,7 +12,7 @@ export class ScoreDetailComponent implements OnInit {
     transaction: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchTransaction){
             list:getTransactionPage(pageIndex:$index,pageSize:$size,transaction:$info){
-                id,Goods{name},User{username},createAt,code,state,endTime
+                id,Goods{id,name},User{id,username},createAt,code,state,endTime
             }
             count:getTransactionCount(transaction:$info)
         }`,
