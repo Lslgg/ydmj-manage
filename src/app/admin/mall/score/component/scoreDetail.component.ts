@@ -23,19 +23,16 @@ export class ScoreDetailComponent implements OnInit {
         where: { transaction: { "\"goodsId\"": `{\\\"$eq\\\":\\\"${this.route.snapshot.params['id']}\\\"}` } }
     };
 
-    constructor(private router: Router, private route: ActivatedRoute) {
-    }
+    constructor(private router: Router, private route: ActivatedRoute) { }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     onData(info: any, dataList: any) {
         for (var i = 0; i < dataList.length; i++) {
             if (dataList[i].state == 1) {
                 dataList[i].state = '已兑换';
                 continue;
-            } else if ((new Date(dataList[i].endTime).getTime() > new Date().getTime())) {
+            } else if ((new Date(dataList[i].endTime).getTime() < new Date().getTime())) {
                 dataList[i].state = '已过期';
                 continue;
             }

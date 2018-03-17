@@ -40,7 +40,9 @@ export class AddGoodsComponent implements OnInit {
     };
 
     businessList: Array<{ key: string, value: string }> = [];
+
     goodsTypeList: Array<{ key: string, value: string }> = [];
+
     timeList: Array<{ key: Number, value: string }> = [
         { key: 259200000, value: "3天内有效" },
         { key: 604800000, value: "7天内有效" },
@@ -48,6 +50,7 @@ export class AddGoodsComponent implements OnInit {
         { key: 2592000000, value: "30天内有效" },
         { key: 7776000000, value: "90天内有效" },
     ];
+
     businessId: Array<String> = [];
 
     constructor(
@@ -70,10 +73,8 @@ export class AddGoodsComponent implements OnInit {
         }
         var goodsTypeList = await this.getGoodsTypeList();
         if (goodsTypeList) {
-            if (goodsTypeList) {
-                for (var i = 0; i < goodsTypeList.length; i++) {
-                    this.goodsTypeList.push({ key: goodsTypeList[i].id + '', value: goodsTypeList[i].name + '' });
-                }
+            for (var i = 0; i < goodsTypeList.length; i++) {
+                this.goodsTypeList.push({ key: goodsTypeList[i].id + '', value: goodsTypeList[i].name + '' });
             }
         }
     }
@@ -116,9 +117,9 @@ export class AddGoodsComponent implements OnInit {
         this.apollo.query<{ list: Array<{ id: String, name: String }> }>({
             query: sql,
             variables: { "info": { "businessId": `{"$eq":"${info}"}` } },
-            fetchPolicy: "network-only" 
-        }).subscribe(async ({ data }) => {
-            if (data.list) {    
+            fetchPolicy: "network-only"
+        }).subscribe(({ data }) => {
+            if (data && data.list) {
                 for (var i = 0; i < data.list.length; i++) {
                     this.goodsTypeList.push({ key: data.list[i].id + '', value: data.list[i].name + '' });
                 }
