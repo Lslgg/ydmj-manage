@@ -11,7 +11,7 @@
           <div class="form-group label-floating is-empty">
             <input type="text" style="width:380px;" #code>
           </div>
-          <button type="submit" class="btn btn-fill btn-rose" (click)="doTransact(code.value)" style="margin-left:60%">兑换</button>
+          <button type="submit" class="btn btn-fill btn-rose" (click)="doTransact(code.value)" (keyup.enter)="onEnter(code.value)" style="margin-left:60%">兑换</button>
         </form>
       </div>
     </div>

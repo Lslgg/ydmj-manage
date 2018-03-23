@@ -11,10 +11,13 @@ import { Apollo } from 'apollo-angular';
 export class TransactComponent implements OnInit {
 
 
-    constructor(private router: Router, private apollo: Apollo) {}
+    constructor(private router: Router, private apollo: Apollo) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
+    onEnter(code: String) {
+        this.doTransact(code);
+    }
     doTransact(code: String) {
 
         var sql = gql`query($code:String){
@@ -24,10 +27,13 @@ export class TransactComponent implements OnInit {
             query: sql,
             variables: { code: `${code}` },
             fetchPolicy: "network-only"
-        }).subscribe(({ data }) => {            
+        }).subscribe(({ data }) => {
             switch (data.result) {
                 case -1:
                     alert("该兑换码不存在！");
+                    break;
+                case -2:
+                    alert("该兑换码与商家不匹配！");
                     break;
                 case 1:
                     alert("该兑换码已兑换！");
