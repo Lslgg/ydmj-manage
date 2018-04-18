@@ -9,6 +9,7 @@
     "build production": "ng build --target=production --environment=prod",
     "build production aot": "ng build --prod --aot",
     "build production optimizer": "ng build --prod  --build-optimizer",
+    "generate":"gql-gen --url http://localhost:8080/graphql --template ts --out ./src/types.d.ts \"./src/graphql/**/*.ts\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

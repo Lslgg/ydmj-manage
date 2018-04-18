@@ -24,6 +24,7 @@ export class AdminComponent implements OnInit {
             user:login(username:$username,password:$password) {username password }
         }`;
 
+
         this.apollo.query<{ user: any }>({
             query: sql,
             variables: { username: account, password: pwd },

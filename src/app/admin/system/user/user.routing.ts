@@ -17,6 +17,6 @@ export const UserList = [
     AddUserComponent,
     UserInfoComponent,
     UserPwdComponent
-    
+
 ];
 
