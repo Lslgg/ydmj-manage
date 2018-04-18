@@ -23,6 +23,8 @@ export class MainComponent {
     var nowDate = this.cdate.toDateFormat();
     var where = { createTime: `FROM_UNIXTIME(createTime/1000)>='${nowDate}'` };
     var qInfo = { query: sql, variables: where };
-    this.apollo.query(qInfo).subscribe(({ data }) => Object.assign(this.total, data))
+    this.apollo.query(qInfo).subscribe(({ data }) => {
+      Object.assign(this.total, data);
+    })
   }
 }
