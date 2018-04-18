@@ -10,11 +10,12 @@ import gql from 'graphql-tag';
 
 export class AddRoleComponent implements OnInit {
 
-    roleForm: FormGroup=this.fb.group({
+    roleForm: FormGroup = this.fb.group({
         id: [''],
         code: [''],
         roleName: ['', [Validators.required, Validators.maxLength(32)]],
         desc: [''],
+        isDefault: [false],
         isValid: [true]
     });
 
@@ -22,7 +23,7 @@ export class AddRoleComponent implements OnInit {
         module: "role",
         data: gql`query getInfo($id:String){
             info:getRoleById(id:$id){
-                id roleName code desc isValid
+                id roleName code desc isValid isDefault
             }
         }`,
         save: gql`mutation add($info:inputRole){
@@ -32,7 +33,7 @@ export class AddRoleComponent implements OnInit {
     };
 
     constructor(private fb: FormBuilder) {
-        
+
     }
 
     ngOnInit() {

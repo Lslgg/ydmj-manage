@@ -11,15 +11,15 @@ import gql from 'graphql-tag';
 export class AddBusinessComponent implements OnInit {
 
     businessForm: FormGroup = this.fb.group({
-        id: [''],        
+        id: [''],
         name: ['', Validators.required],
-        address: ['', Validators.required],                  
+        address: ['', Validators.required],
         phone: ['', Validators.required],
         hours: ['', Validators.required],
         brief: ['', Validators.required],
         imageIds: ['', Validators.required],
         times: [0, Validators.required],
-        score: [0, Validators.required],    
+        score: [0, Validators.required],
         isValid: [true],
     });
 
@@ -39,11 +39,9 @@ export class AddBusinessComponent implements OnInit {
         { key: "全部", value: "全部" },
         { key: "商品页面广告", value: "商品页面广告" },
         { key: "商家页面广告", value: "商家页面广告" }
-    ];
+    ];    
 
-    files: Array<any> = new Array<any>();
-
-    constructor( @Inject("commonData") private cdate: CommonData,
+    constructor(@Inject("commonData") private cdate: CommonData,
         private fb: FormBuilder, private route: ActivatedRoute,
         private router: Router) {
     }

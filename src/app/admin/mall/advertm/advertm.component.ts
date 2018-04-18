@@ -36,9 +36,4 @@ export class AdvertmComponent implements OnInit {
 
     }
 
-    // onSetInfo(info: IdType) {
-    //     if (info.type == "title") {
-    //         this.router.navigate(['../admin/addBusiness', info.id]);
-    //     }
-    // }
 }

@@ -12,7 +12,7 @@ export class ScoreDetailComponent implements OnInit {
     transaction: TableStr = {
         data: gql`query($index:Int,$size:Int,$info:searchTransaction){
             list:getTransactionPage(pageIndex:$index,pageSize:$size,transaction:$info){
-                id,Goods{name},User{username},createAt,code,state,endTime
+                id,Goods{id,name},User{id,username},createAt,code,state,endTime
             }
             count:getTransactionCount(transaction:$info)
         }`,
@@ -23,22 +23,22 @@ export class ScoreDetailComponent implements OnInit {
         where: { transaction: { "\"goodsId\"": `{\\\"$eq\\\":\\\"${this.route.snapshot.params['id']}\\\"}` } }
     };
 
-    constructor(private router: Router, private route: ActivatedRoute) {
-    }
+    constructor(private router: Router, private route: ActivatedRoute) { }
 
-    ngOnInit() {
-
-    }
+    ngOnInit() { }
 
     onData(info: any, dataList: any) {
         for (var i = 0; i < dataList.length; i++) {
             if (dataList[i].state == 1) {
                 dataList[i].state = '已兑换';
-            } else if ((new Date(dataList[i].endTime).getTime() > new Date().getTime())) {
+                continue;
+            } else if ((new Date(dataList[i].endTime).getTime() < new Date().getTime())) {
                 dataList[i].state = '已过期';
+                continue;
             }
             else {
                 dataList[i].state = '未兑换';
+                continue;
             }
         }
     }

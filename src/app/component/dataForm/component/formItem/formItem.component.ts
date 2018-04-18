@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, Input,EventEmitter,
+    Component, OnInit, Input, EventEmitter,
     ElementRef, AfterViewInit, Output,
     ContentChildren, QueryList, HostBinding
 } from '@angular/core';
@@ -11,20 +11,20 @@ import { ValidatorComponent } from '../validator/validator.component'
 @Component({
     selector: 'form-item',
     templateUrl: 'formItem.html',
-    styleUrls:['formItem.scss']
+    styleUrls: ['formItem.scss']
 })
 
 export class FormItemComponent implements OnInit {
 
     @Input() name: string;
 
-    @Input() isRootClass: boolean = true; 
+    @Input() isRootClass: boolean = true;
 
     @Input() title: string;
 
     @Input() type: string = "text";
 
-    @Input() isSaveField:boolean=true;
+    @Input() isSaveField: boolean = true;
 
     @HostBinding('class.col-md-12') colmd12: boolean;
 
@@ -38,7 +38,7 @@ export class FormItemComponent implements OnInit {
 
     @Output() onChange = new EventEmitter<any>();
 
-    @Input() editorContent="";
+    @Input() editorContent = "";
 
     @ContentChildren(ValidatorComponent) validatorList: QueryList<ValidatorComponent>;
 
@@ -46,7 +46,7 @@ export class FormItemComponent implements OnInit {
 
     }
 
-    change(info){
+    change(info) {
         this.onChange.emit(info.value);
     }
 
@@ -73,28 +73,33 @@ export class FormItemComponent implements OnInit {
     }
 
     //设置每一个表单中的字段如何显示
-    setFormVale(info:object){
+    setFormVale(info: object) {
 
-        if(!info) return ; //对象为空返回
-        var name=info[this.name];
-        if(!name) return; //值为空返回
-        
+        if (!info) return; //对象为空返回
+        var name = info[this.name];
+        if (!name) return; //值为空返回
+
         //如果字段为对象
-        if(this.type=='object'){
-            let key=Object.keys(name);
-            name=name[key[0]];
+        if (this.type == 'object') {
+            let key = Object.keys(name);
+            name = name[key[0]];
+        }
+
+        var type = typeof name;
+        if (this.type == 'select' && type == 'object') {
+            name = name.id;
         }
 
         //如果字段为文件
-        if(this.type=="file"&&name.length>0&&name[0]!=null){
-            this.files=name;
-            name=this.files.map(p=>p.id)
-        }else{
-            this.files=[];
+        if (this.type == "file" && name.length > 0 && name[0] != null) {
+            this.files = name;
+            name = this.files.map(p => p.id)
+        } else {
+            this.files = [];
         }
         this.formInfo.get(this.name).setValue(name);
-        if(this.type=="editor"){
-            this.editorContent=name;
+        if (this.type == "editor") {
+            this.editorContent = name;
         }
     }
 

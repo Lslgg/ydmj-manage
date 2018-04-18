@@ -19,6 +19,10 @@ export class AdminComponent implements OnInit {
 
     }
 
+    onEnter(username: string, password: string) {
+        this.onLogin(username, password);
+    }
+
     async onLogin(account: string, pwd: string) {
         var sql = gql`query login($username:String!,$password:String!){
             user:login(username:$username,password:$password) {username password }

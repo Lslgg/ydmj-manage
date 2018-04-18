@@ -37,11 +37,11 @@ export class AddAnswerComponent implements OnInit {
         { key: "常见问答", value: "常见问答" },        
     ];
 
-    files: Array<any> = new Array<any>();
+    // files: Array<any> = new Array<any>();
 
     constructor( @Inject("commonData") private cdate: CommonData,
         private fb: FormBuilder, private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router) {            
     }
 
     ngOnInit() { }

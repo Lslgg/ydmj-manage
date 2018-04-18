@@ -20,7 +20,7 @@ export class ScoreComponent implements OnInit {
             deleteBusiness(id:$id)
         }`,
         url: "admin/scoreList",
-        where: { advert: {} }
+        where: { business: {} }
     };
 
     constructor(private router: Router) {

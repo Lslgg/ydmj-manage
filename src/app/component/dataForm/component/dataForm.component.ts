@@ -22,6 +22,7 @@ export class DataFormComponent implements OnInit {
     //是否自动
     @Input() isAuto: boolean = true;
     @Output() onSubmit = new EventEmitter<any>();
+    @Output() onDone = new EventEmitter<Boolean>();
 
     //操作项
     @Input() dataStr: FormStr;
@@ -35,6 +36,8 @@ export class DataFormComponent implements OnInit {
     savefieldList: Array<string> = [];
 
     id: string;
+
+    val:any;
 
     constructor( @Inject("commonData") private cdate: CommonData,
         private fb: FormBuilder, private route: ActivatedRoute,
@@ -55,7 +58,7 @@ export class DataFormComponent implements OnInit {
         //如果是自动加载查找给值
         this.id = this.route.snapshot.params['id'];
         let val = {};
-        if (this.isAuto) {
+        if (this.isAuto) {            
             if (this.id) {
                 var queryInfo:any = {
                     query: this.dataStr.data,
@@ -64,6 +67,7 @@ export class DataFormComponent implements OnInit {
                 };
                 var data = await this.apollo.query<{ info: any }>(queryInfo).toPromise();
                 val = data.data.info;
+                this.val = val;
             }
         }
 
@@ -84,6 +88,7 @@ export class DataFormComponent implements OnInit {
                     this.savefieldList.push(p.name);
                 }
             }));
+            this.onDone.emit(true);
     }
 
     async submit() {
@@ -104,8 +109,7 @@ export class DataFormComponent implements OnInit {
                 alert(data ? "操作成功！" : "操作失败！");
                 this.router.navigate([this.dataStr.url]);
             })
-        }
-        console.log(formObj);
+        }        
         this.onSubmit.emit(formObj);
     }
 
