@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import gql from 'graphql-tag';
 
+
 @Component({
     selector: 'admin-addRole',
     templateUrl: 'addRole.html',

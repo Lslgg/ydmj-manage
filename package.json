@@ -6,13 +6,16 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
     "build production": "ng build --target=production --environment=prod",
     "build production aot": "ng build --prod --aot",
     "build production optimizer": "ng build --prod  --build-optimizer",
-    "generate":"gql-gen --url http://localhost:8080/graphql --template ts --out ./src/types.d.ts \"./src/graphql/**/*.ts\"",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "doc:build": "compodoc -p src/tsconfig.app.json",
+    "doc:serve": "compodoc -s",
+    "doc:buildandserve": "compodoc -p src/tsconfig.app.json -s",
+    "generate": "gql-gen --url http://localhost:8080/graphql --template ts --out ./src/types.d.ts \"./src/graphql/**/*.ts\""
   },
   "private": true,
   "dependencies": {
@@ -27,6 +30,7 @@
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.1",
+    "@compodoc/compodoc": "^1.1.2",
     "angular-froala-wysiwyg": "^2.7.3",
     "apollo-angular": "^1.0.1",
     "apollo-angular-link-http": "^1.0.1",
