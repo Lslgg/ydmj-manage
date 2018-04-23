@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+mall-admin
 /out-tsc
 
 # dependencies
